@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Stack, TextField } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { useFormik } from 'formik';
 import { OutboundAuthModel, initialValues, validationSchema } from './OutboundAuthModel';
 import { LoadingButton } from '@mui/lab';
 import { axiosInstance } from '../../lib/axios';
@@ -8,64 +8,69 @@ import { useRouter } from 'next/router';
 import { config } from '../../lib/toast/Config';
 import { toast } from 'react-toastify';
 
+/** Login form */
 const LoginForm = () => {
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
 
-  const handleSubmit = (model: OutboundAuthModel) => {
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: (model) => {
+      handleSubmitAsync(model);
+    },
+  });
+
+  /**
+   * Handles submission of the login form
+   * @param model Instance of {@link OutboundAuthModel} posted to server
+   */
+  const handleSubmitAsync = async (model: OutboundAuthModel) => {
     setLoading(true);
 
-    axiosInstance.post('/auth/login', model)
-      .then((res) => {
-        // TODO - save token to local storage and set context
-        router.push('/');
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message, config);
+    try {
+      await axiosInstance.post('/auth/login', model);
+      router.push('/');
+    } catch (err: any) {
+      toast.error(err.response.data.message, config);
+      setTimeout(() => {
         setLoading(false);
-      });
+      }, 1000);
+    }
   }
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={(model) => {
-        handleSubmit(model);
-      }}
-      validationSchema={validationSchema}
-    >
-      {({ values: model,  handleChange, handleBlur, errors }) => (
-        <Form>
-          <Stack spacing={2}>
-            <TextField
-              name='emailAddress'
-              label='Email address'
-              value={model.emailAddress}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              variant='outlined'
-              error={errors.emailAddress !== undefined}
-              helperText={errors.emailAddress !== undefined && errors.emailAddress} />
-            <TextField
-              name="password"
-              label='Password'
-              type='password'
-              value={model.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              variant='outlined'
-              error={errors.password !== undefined}
-              helperText={errors.password !== undefined && errors.password}/>
-            <LoadingButton
-              variant='contained'
-              type='submit'
-              loading={loading}>
-              Login
-            </LoadingButton>
-          </Stack> 
-        </Form>
-      )}
-    </Formik>
+    <form onSubmit={formik.handleSubmit}>
+      <Stack spacing={.5}>
+        <TextField
+          name='emailAddress'
+          label='Email address'
+          value={formik.values.emailAddress}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          variant='outlined'
+          error={formik.errors.emailAddress !== undefined}
+          helperText={formik.errors.emailAddress !== undefined ? formik.errors.emailAddress : ' '} />
+        <TextField
+          name="password"
+          label='Password'
+          type='password'
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          variant='outlined'
+          error={formik.errors.password !== undefined}
+          helperText={
+            formik.errors.password !== undefined ? formik.errors.password : ' '} />
+        <LoadingButton
+          variant='contained'
+          type='submit'
+          loading={loading}
+          disabled={!formik.isValid}>
+          Login
+        </LoadingButton>
+      </Stack> 
+    </form>
   )
 }
 
