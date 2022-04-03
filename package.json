@@ -10,13 +10,20 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.4.1",
+    "@mui/lab": "^5.0.0-alpha.75",
     "@mui/material": "^5.4.1",
+    "axios": "^0.26.1",
+    "formik": "^2.2.9",
     "next": "12.0.10",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-toastify": "^8.2.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/material-ui": "^0.21.12",
     "@types/node": "17.0.17",
     "@types/react": "17.0.39",
     "eslint": "8.9.0",
