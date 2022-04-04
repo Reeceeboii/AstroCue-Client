@@ -12,7 +12,7 @@ import {
   OutboundAuthModel,
   validationSchema,
 } from '../../lib/Models/OutboundAuthModel';
-import { axiosInstance } from '../../lib/axios';
+import { axiosInstance } from '../../lib/Axios';
 
 /** Login form */
 const LoginForm = () => {

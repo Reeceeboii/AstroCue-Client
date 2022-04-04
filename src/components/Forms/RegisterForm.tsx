@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-import { axiosInstance } from '../../lib/axios';
+import { axiosInstance } from '../../lib/Axios';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   initialValues,
