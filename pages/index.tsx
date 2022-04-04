@@ -1,28 +1,15 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Button from '@mui/material/Button'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from 'next';
+import Layout from '../src/components/Layout/Layout';
+import { useAstroCueContext } from '../src/Context/AstroCueUser/AstroCueUserContext';
+import useLoginRedirect from '../src/lib/Hooks/useLoginRedirect';
 
+/** Home page */
 const Home: NextPage = () => {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>AstroCue</title>
-        <meta name="description" content="AstroCue" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  useLoginRedirect();
 
-      <main className={styles.main}>
+  const { astroCueUser } = useAstroCueContext();
 
-        <Button variant="contained">Hello World</Button>
-        
-      </main>
+  return <Layout></Layout>;
+};
 
-      <footer className={styles.footer}>
-        <p>Some footer content</p>
-      </footer>
-    </div>
-  )
-}
-
-export default Home
+export default Home;
