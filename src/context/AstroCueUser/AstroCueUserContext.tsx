@@ -1,6 +1,5 @@
 import useLocalStorage from "@rehooks/local-storage";
-import { useRouter } from "next/router";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext } from "react";
 import LocalStorageKeys from "../../lib/constants/LocalStorageKeys";
 
 /** Type representing an AstroCue user */

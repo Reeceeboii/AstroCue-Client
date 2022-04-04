@@ -1,18 +1,19 @@
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Toolbar from '@mui/material/Toolbar';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import LogoutIcon from '@mui/icons-material/Logout';
+import ListItemText from '@mui/material/ListItemText';
+import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useAstroCueContext } from '../context/AstroCueUser/AstroCueUserContext';
-import { SignOut } from '../lib/auth/SignIn';
+import { SignOut } from '../lib/auth/SignOut';
 
-export default function Nav() {
+/** Nav bar */
+const Nav = () => {
   const { astroCueUser } = useAstroCueContext();
   
   const router = useRouter();
@@ -28,20 +29,20 @@ export default function Nav() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar>
-          <div style={{ "flexGrow": 1, "cursor": "pointer" }}>
+          <div style={{ 'flexGrow': 1, 'cursor': 'pointer' }}>
             <Image
-              src="/logo_light.png"
-              alt="logo"
+              src='/logo_light.png'
+              alt='logo'
               width={240}
               height={42.5}
               onClick={() => router.push('/')} />
           </div>
           {astroCueUser ? (
             <IconButton
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleMenu}>
               <Avatar>
                 {`${astroCueUser.firstName.charAt(0)}${astroCueUser.lastName.charAt(0)}`}
@@ -57,7 +58,7 @@ export default function Nav() {
             </Button>
           )}
           <Menu
-            id="menu-appbar"
+            id='menu-appbar'
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: 'bottom',
@@ -73,9 +74,9 @@ export default function Nav() {
           >
             <MenuItem onClick={() => SignOut()}>
               <ListItemIcon>
-                <LogoutIcon fontSize="small" />
+                <LogoutIcon fontSize='small' />
               </ListItemIcon>
-              <ListItemText primary="Logout" />
+              <ListItemText primary='Logout' />
             </MenuItem>
           </Menu>
         </Toolbar>
@@ -83,3 +84,5 @@ export default function Nav() {
     </Box>
   );
 }
+
+export default Nav;
