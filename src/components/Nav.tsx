@@ -15,10 +15,10 @@ import { SignOut } from '../lib/auth/SignOut';
 /** Nav bar */
 const Nav = () => {
   const { astroCueUser } = useAstroCueContext();
-  
+
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  
+
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,29 +31,33 @@ const Nav = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
-          <div style={{ 'flexGrow': 1, 'cursor': 'pointer' }}>
+          <div style={{ flexGrow: 1, cursor: 'pointer' }}>
             <Image
               src='/logo_light.png'
               alt='logo'
               width={240}
               height={42.5}
-              onClick={() => router.push('/')} />
+              onClick={() => router.push('/')}
+            />
           </div>
           {astroCueUser ? (
             <IconButton
               aria-controls='menu-appbar'
               aria-haspopup='true'
-              onClick={handleMenu}>
+              onClick={handleMenu}
+            >
               <Avatar>
-                {`${astroCueUser.firstName.charAt(0)}${astroCueUser.lastName.charAt(0)}`}
+                {`${astroCueUser.firstName.charAt(
+                  0,
+                )}${astroCueUser.lastName.charAt(0)}`}
               </Avatar>
             </IconButton>
-          )
-            : (
+          ) : (
             <Button
               variant='outlined'
               color='inherit'
-              onClick={() => router.push('/login')}>
+              onClick={() => router.push('/login')}
+            >
               Login
             </Button>
           )}
@@ -83,6 +87,6 @@ const Nav = () => {
       </AppBar>
     </Box>
   );
-}
+};
 
 export default Nav;

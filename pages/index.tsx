@@ -9,11 +9,7 @@ const Home: NextPage = () => {
 
   const { astroCueUser } = useAstroCueContext();
 
-  return (
-    <Layout >
-
-    </Layout>
-  )
-}
+  return <Layout></Layout>;
+};
 
 export default Home;

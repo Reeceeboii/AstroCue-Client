@@ -7,7 +7,11 @@ import { toast } from 'react-toastify';
 import { axiosInstance } from '../../lib/axios';
 import APIEndpoints from '../../lib/constants/Endpoints';
 import { config } from '../../lib/toast/Config';
-import { initialValues, OutboundRegModel, validationSchema } from './OutboundRegModel';
+import {
+  initialValues,
+  OutboundRegModel,
+  validationSchema,
+} from './OutboundRegModel';
 
 /** New user registration form */
 const RegisterForm = () => {
@@ -17,44 +21,45 @@ const RegisterForm = () => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
-    onSubmit: (model: OutboundRegModel) => { 
+    onSubmit: (model: OutboundRegModel) => {
       handleSubmitAsync(model);
-    }
+    },
   });
 
   /**
    * Handles submission of the registration form
    * @param model Instance of {@link OutboundRegModel} posted to server
-   * @param model 
+   * @param model
    */
-  const handleSubmitAsync = async (model: OutboundRegModel) => { 
+  const handleSubmitAsync = async (model: OutboundRegModel) => {
     setLoading(true);
-  
-    try { 
+
+    try {
       await axiosInstance.post(APIEndpoints.Auth.Register, model);
       router.push({
-          pathname: '/login',
-          query: {
-            regRedirect: true,
-            /* 
-             * If they entered name with the first letter as lowercase,
-             * we can uppercase it here for display purposes. The server
-             * will do this itself before storing in DB
-             */
-            name: model.firstName.charAt(0).toUpperCase() + model.firstName.slice(1),
-          }
-        });
-    } catch (err: any) { 
+        pathname: '/login',
+        query: {
+          regRedirect: true,
+          /*
+           * If they entered name with the first letter as lowercase,
+           * we can uppercase it here for display purposes. The server
+           * will do this itself before storing in DB
+           */
+          name:
+            model.firstName.charAt(0).toUpperCase() + model.firstName.slice(1),
+        },
+      });
+    } catch (err: any) {
       toast.error(err.response.data.message, config);
       setTimeout(() => {
         setLoading(false);
       }, 1000);
     }
-  }
+  };
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Stack spacing={.5}>
+      <Stack spacing={0.5}>
         <TextField
           name='emailAddress'
           label='Email address'
@@ -63,7 +68,11 @@ const RegisterForm = () => {
           onBlur={formik.handleBlur}
           variant='outlined'
           error={formik.errors.emailAddress !== undefined}
-          helperText={formik.errors.emailAddress !== undefined ? formik.errors.emailAddress: ' '}
+          helperText={
+            formik.errors.emailAddress !== undefined
+              ? formik.errors.emailAddress
+              : ' '
+          }
         />
         <TextField
           name='firstName'
@@ -73,7 +82,11 @@ const RegisterForm = () => {
           onBlur={formik.handleBlur}
           variant='outlined'
           error={formik.errors.firstName !== undefined}
-          helperText={formik.errors.firstName !== undefined ? formik.errors.firstName : ' '}
+          helperText={
+            formik.errors.firstName !== undefined
+              ? formik.errors.firstName
+              : ' '
+          }
         />
         <TextField
           name='lastName'
@@ -83,7 +96,9 @@ const RegisterForm = () => {
           onBlur={formik.handleBlur}
           variant='outlined'
           error={formik.errors.lastName !== undefined}
-          helperText={formik.errors.lastName !== undefined ? formik.errors.lastName : ' '}
+          helperText={
+            formik.errors.lastName !== undefined ? formik.errors.lastName : ' '
+          }
         />
         <TextField
           name='password'
@@ -94,7 +109,9 @@ const RegisterForm = () => {
           onBlur={formik.handleBlur}
           variant='outlined'
           error={formik.errors.password !== undefined}
-          helperText={formik.errors.password !== undefined ? formik.errors.password: ' '}
+          helperText={
+            formik.errors.password !== undefined ? formik.errors.password : ' '
+          }
         />
         <LoadingButton
           variant='contained'
@@ -106,7 +123,7 @@ const RegisterForm = () => {
         </LoadingButton>
       </Stack>
     </form>
-  )
-}
+  );
+};
 
 export default RegisterForm;

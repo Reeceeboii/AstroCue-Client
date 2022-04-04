@@ -7,7 +7,7 @@ enum Auth {
 }
 
 /** Geographic controller endpoints */
-enum Geo { 
+enum Geo {
   /** Forward geocode endpoint */
   Search = '/geo/search',
 }
@@ -57,6 +57,6 @@ const APIEndpoints = {
   ObservationLocation,
   /** Report controller endpoints */
   Report,
-}
+};
 
 export default APIEndpoints;

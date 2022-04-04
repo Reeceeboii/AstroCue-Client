@@ -12,16 +12,16 @@ import { config } from '../src/lib/toast/Config';
 /** Login page */
 const Login: NextPage = () => {
   useRedirectLoggedInUsers();
-  
+
   const router = useRouter();
-  
-  useEffect(() => { 
+
+  useEffect(() => {
     const { regRedirect, name } = router.query;
-    
-    if (regRedirect !== undefined) { 
+
+    if (regRedirect !== undefined) {
       toast.info(`Thanks for signing up, ${name}! You can now log in.`, config);
     }
-  })
+  });
 
   return (
     <Layout>
@@ -29,7 +29,8 @@ const Login: NextPage = () => {
         container
         alignItems='center'
         justifyContent='center'
-        style={{ minHeight: '50vh' }}>      
+        style={{ minHeight: '50vh' }}
+      >
         <Container maxWidth='xs'>
           <Stack spacing={2}>
             <Typography variant='h4' align='center'>
@@ -42,7 +43,8 @@ const Login: NextPage = () => {
                 <Typography
                   sx={{ textDecoration: 'underline', cursor: 'pointer' }}
                   variant='body1'
-                  color='primary'>
+                  color='primary'
+                >
                   Register
                 </Typography>
               </Link>
@@ -52,6 +54,6 @@ const Login: NextPage = () => {
       </Grid>
     </Layout>
   );
-}
+};
 
 export default Login;

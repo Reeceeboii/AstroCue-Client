@@ -1,6 +1,6 @@
-import useLocalStorage from "@rehooks/local-storage";
-import { createContext, useContext } from "react";
-import LocalStorageKeys from "../../lib/constants/LocalStorageKeys";
+import useLocalStorage from '@rehooks/local-storage';
+import { createContext, useContext } from 'react';
+import LocalStorageKeys from '../../lib/constants/LocalStorageKeys';
 
 /** Type representing an AstroCue user */
 type AstroCueUser = {
@@ -10,7 +10,7 @@ type AstroCueUser = {
   lastName: string;
   /** The user's email address */
   emailAddress: string;
-}
+};
 
 /** Interface representing the AstroCue user context*/
 interface AstroCueUserContext {
@@ -27,26 +27,33 @@ interface AstroCueUserContext {
 /** AstroCueUserContext */
 const AstroCueUserContext = createContext<AstroCueUserContext>({
   astroCueUser: undefined,
-  setAstroCueUser: () => { },
+  setAstroCueUser: () => {},
   token: undefined,
-  setToken: () => { },
+  setToken: () => {},
 });
 
 export const useAstroCueContext = () => useContext(AstroCueUserContext);
 const AstroCueUserProvider = AstroCueUserContext.Provider;
 
-export const AstroCueUserContextProvider: React.FC = ({ children }) => { 
-  const [astroCueUser, setAstroCueUser] = useLocalStorage<AstroCueUser | undefined>(LocalStorageKeys.User, undefined);
-  const [token, setToken] = useLocalStorage<string | undefined>(LocalStorageKeys.Token, undefined);
+export const AstroCueUserContextProvider: React.FC = ({ children }) => {
+  const [astroCueUser, setAstroCueUser] = useLocalStorage<
+    AstroCueUser | undefined
+  >(LocalStorageKeys.User, undefined);
+  const [token, setToken] = useLocalStorage<string | undefined>(
+    LocalStorageKeys.Token,
+    undefined,
+  );
 
-  return <AstroCueUserProvider value={
-    {
-      astroCueUser,
-      setAstroCueUser,
-      token,
-      setToken,
-    }
-  }>
-    {children}
-  </AstroCueUserProvider>;
-}
+  return (
+    <AstroCueUserProvider
+      value={{
+        astroCueUser,
+        setAstroCueUser,
+        token,
+        setToken,
+      }}
+    >
+      {children}
+    </AstroCueUserProvider>
+  );
+};

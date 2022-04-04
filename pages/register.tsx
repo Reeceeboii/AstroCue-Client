@@ -1,21 +1,22 @@
-import { Container, Grid, Stack, Typography } from "@mui/material";
-import { NextPage } from "next";
-import Link from "next/link";
-import Layout from "../src/components/Layout";
-import RegisterForm from "../src/Forms/register/RegisterForm";
-import useRedirectLoggedInUsers from "../src/lib/hooks/useRedirectLoggedInUsers";
+import { Container, Grid, Stack, Typography } from '@mui/material';
+import { NextPage } from 'next';
+import Link from 'next/link';
+import Layout from '../src/components/Layout';
+import RegisterForm from '../src/Forms/register/RegisterForm';
+import useRedirectLoggedInUsers from '../src/lib/hooks/useRedirectLoggedInUsers';
 
 /** User registration page */
 const Register: NextPage = () => {
   useRedirectLoggedInUsers();
-  
+
   return (
     <Layout>
       <Grid
         container
         alignItems='center'
         justifyContent='center'
-        style={{ minHeight: '50vh' }}>        
+        style={{ minHeight: '50vh' }}
+      >
         <Container maxWidth='xs'>
           <Stack spacing={2}>
             <Typography variant='h4' align='center'>
@@ -28,7 +29,8 @@ const Register: NextPage = () => {
                 <Typography
                   sx={{ textDecoration: 'underline', cursor: 'pointer' }}
                   variant='body1'
-                  color='primary'>
+                  color='primary'
+                >
                   Login
                 </Typography>
               </Link>
@@ -37,7 +39,7 @@ const Register: NextPage = () => {
         </Container>
       </Grid>
     </Layout>
-  )
-}
+  );
+};
 
 export default Register;

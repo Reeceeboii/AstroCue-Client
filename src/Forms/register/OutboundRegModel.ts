@@ -22,7 +22,7 @@ export const initialValues = {
   lastName: '',
   /** The password default */
   password: '',
-}
+};
 
 /** Yup validation schema */
 export const validationSchema = yup.object().shape({
@@ -32,15 +32,9 @@ export const validationSchema = yup.object().shape({
     .email('Invalid email')
     .required('Email is required'),
   /** first name validation */
-  firstName: yup
-    .string()
-    .required('First name is required'),
+  firstName: yup.string().required('First name is required'),
   /** last name validation */
-  lastName: yup
-    .string()
-    .required('Last name is required'),
+  lastName: yup.string().required('Last name is required'),
   /** password validation */
-  password: yup
-    .string()
-    .required('Password is required'),
+  password: yup.string().required('Password is required'),
 });

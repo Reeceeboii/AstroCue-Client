@@ -1,5 +1,5 @@
 /** Keys used to index local storage */
-const enum LocalStorageKeys { 
+const enum LocalStorageKeys {
   User = 'user',
   Token = 'token',
 }

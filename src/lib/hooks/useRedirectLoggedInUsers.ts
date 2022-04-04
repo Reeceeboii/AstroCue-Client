@@ -3,16 +3,16 @@ import { useEffect } from 'react';
 import { useIsLoggedIn } from './useIsLoggedIn';
 
 /** Hook that redirects logged in users to index. Use on routes like login and register forms etc... */
-const useRedirectLoggedInUsers = () => { 
+const useRedirectLoggedInUsers = () => {
   const isLoggedIn = useIsLoggedIn();
   const router = useRouter();
 
-  useEffect(() => { 
+  useEffect(() => {
     if (isLoggedIn) {
       router.push('/');
       return;
     }
   }, [isLoggedIn, router]);
-}
+};
 
 export default useRedirectLoggedInUsers;

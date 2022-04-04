@@ -8,7 +8,11 @@ import OutboundAuthSuccessModel from '../../lib/auth/Models';
 import { SignIn } from '../../lib/auth/SignIn';
 import { axiosInstance } from '../../lib/axios';
 import { config } from '../../lib/toast/Config';
-import { initialValues, OutboundAuthModel, validationSchema } from './OutboundAuthModel';
+import {
+  initialValues,
+  OutboundAuthModel,
+  validationSchema,
+} from './OutboundAuthModel';
 
 /** Login form */
 const LoginForm = () => {
@@ -31,7 +35,10 @@ const LoginForm = () => {
     setLoading(true);
 
     try {
-      const user = await axiosInstance.post<OutboundAuthSuccessModel>('/auth/login', model);
+      const user = await axiosInstance.post<OutboundAuthSuccessModel>(
+        '/auth/login',
+        model,
+      );
       SignIn(user.data);
       router.push('/');
     } catch (err: any) {
@@ -40,11 +47,11 @@ const LoginForm = () => {
         setLoading(false);
       }, 1000);
     }
-  }
+  };
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Stack spacing={.5}>
+      <Stack spacing={0.5}>
         <TextField
           name='emailAddress'
           label='Email address'
@@ -53,9 +60,14 @@ const LoginForm = () => {
           onBlur={formik.handleBlur}
           variant='outlined'
           error={formik.errors.emailAddress !== undefined}
-          helperText={formik.errors.emailAddress !== undefined ? formik.errors.emailAddress : ' '} />
+          helperText={
+            formik.errors.emailAddress !== undefined
+              ? formik.errors.emailAddress
+              : ' '
+          }
+        />
         <TextField
-          name="password"
+          name='password'
           label='Password'
           type='password'
           value={formik.values.password}
@@ -64,17 +76,20 @@ const LoginForm = () => {
           variant='outlined'
           error={formik.errors.password !== undefined}
           helperText={
-            formik.errors.password !== undefined ? formik.errors.password : ' '} />
+            formik.errors.password !== undefined ? formik.errors.password : ' '
+          }
+        />
         <LoadingButton
           variant='contained'
           type='submit'
           loading={loading}
-          disabled={!formik.isValid}>
+          disabled={!formik.isValid}
+        >
           Login
         </LoadingButton>
-      </Stack> 
+      </Stack>
     </form>
-  )
-}
+  );
+};
 
 export default LoginForm;

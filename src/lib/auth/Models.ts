@@ -1,15 +1,15 @@
 /** Type representing a successful user authentication */
 type OutboundAuthSuccessModel = {
   /** The user's ID */
-  id: number,
+  id: number;
   /** The user's email address */
-  emailAddress: string,
+  emailAddress: string;
   /** The user's first name */
-  firstName: string,
+  firstName: string;
   /** The user's last name */
-  lastName: string,
+  lastName: string;
   /** JWT */
-  token: string,
-}
+  token: string;
+};
 
 export default OutboundAuthSuccessModel;
