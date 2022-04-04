@@ -1,9 +1,9 @@
 import { Container, Grid, Stack, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import Layout from '../src/components/Layout';
-import RegisterForm from '../src/Forms/register/RegisterForm';
-import useRedirectLoggedInUsers from '../src/lib/hooks/useRedirectLoggedInUsers';
+import Layout from '../src/components/Layout/Layout';
+import RegisterForm from '../src/components/Forms/RegisterForm';
+import useRedirectLoggedInUsers from '../src/lib/Hooks/useRedirectLoggedInUsers';
 
 /** User registration page */
 const Register: NextPage = () => {

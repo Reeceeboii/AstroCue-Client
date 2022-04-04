@@ -1,7 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 import { Paper } from '@mui/material';
 import StandardHead from './StandardHeader';
-import Nav from './Nav';
+import Nav from '../Nav';
 import { ToastContainer } from 'react-toastify';
 
 const Layout = ({ children }: any) => {

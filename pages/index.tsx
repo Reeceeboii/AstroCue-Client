@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
-import Layout from '../src/components/Layout';
-import { useAstroCueContext } from '../src/context/AstroCueUser/AstroCueUserContext';
-import useLoginRedirect from '../src/lib/hooks/useLoginRedirect';
+import Layout from '../src/components/Layout/Layout';
+import { useAstroCueContext } from '../src/Context/AstroCueUser/AstroCueUserContext';
+import useLoginRedirect from '../src/lib/Hooks/useLoginRedirect';
 
 /** Home page */
 const Home: NextPage = () => {

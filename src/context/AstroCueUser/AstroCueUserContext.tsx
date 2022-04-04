@@ -1,6 +1,6 @@
 import useLocalStorage from '@rehooks/local-storage';
 import { createContext, useContext } from 'react';
-import LocalStorageKeys from '../../lib/constants/LocalStorageKeys';
+import LocalStorageKeys from '../../lib/Constants/LocalStorageKeys';
 
 /** Type representing an AstroCue user */
 type AstroCueUser = {

@@ -4,15 +4,15 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-import OutboundAuthSuccessModel from '../../lib/auth/Models';
-import { SignIn } from '../../lib/auth/SignIn';
-import { axiosInstance } from '../../lib/axios';
-import { config } from '../../lib/toast/Config';
+import OutboundAuthSuccessModel from '../../lib/Auth/Models';
+import { SignIn } from '../../lib/Auth/SignIn';
+import { config } from '../../lib/Toast/Config';
 import {
   initialValues,
   OutboundAuthModel,
   validationSchema,
-} from './OutboundAuthModel';
+} from '../../lib/Models/OutboundAuthModel';
+import { axiosInstance } from '../../lib/axios';
 
 /** Login form */
 const LoginForm = () => {

@@ -1,5 +1,5 @@
 import { writeStorage } from '@rehooks/local-storage';
-import LocalStorageKeys from '../constants/LocalStorageKeys';
+import LocalStorageKeys from '../Constants/LocalStorageKeys';
 import OutboundAuthSuccessModel from './Models';
 
 /** Stores user details in local storage */

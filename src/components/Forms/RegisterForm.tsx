@@ -5,13 +5,13 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 import { toast } from 'react-toastify';
 import { axiosInstance } from '../../lib/axios';
-import APIEndpoints from '../../lib/constants/Endpoints';
-import { config } from '../../lib/toast/Config';
+import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   initialValues,
   OutboundRegModel,
   validationSchema,
-} from './OutboundRegModel';
+} from '../../lib/Models/OutboundRegModel';
+import { config } from '../../lib/Toast/Config';
 
 /** New user registration form */
 const RegisterForm = () => {

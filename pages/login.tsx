@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import Layout from '../src/components/Layout';
-import LoginForm from '../src/Forms/login/LoginForm';
-import useRedirectLoggedInUsers from '../src/lib/hooks/useRedirectLoggedInUsers';
-import { config } from '../src/lib/toast/Config';
+import Layout from '../src/components/Layout/Layout';
+import LoginForm from '../src/components/Forms/LoginForm';
+import useRedirectLoggedInUsers from '../src/lib/Hooks/useRedirectLoggedInUsers';
+import { config } from '../src/lib/Toast/Config';
 
 /** Login page */
 const Login: NextPage = () => {
