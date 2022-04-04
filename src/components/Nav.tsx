@@ -1,20 +1,30 @@
-import * as React from 'react';
+import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Image from 'next/image';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
+import * as React from 'react';
+import { useAstroCueContext } from '../context/AstroCueUser/AstroCueUserContext';
+import { SignOut } from '../lib/auth/SignIn';
 
 export default function Nav() {
+  const { astroCueUser } = useAstroCueContext();
   
-  const ReturnHome = () => {
-    Router.push('/');
-  }
+  const router = useRouter();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  const RedirectToLoginPage = () => {
-    Router.push('/login');
-  }
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -26,14 +36,48 @@ export default function Nav() {
               alt="logo"
               width={240}
               height={42.5}
-              onClick={() => ReturnHome()} />
+              onClick={() => router.push('/')} />
           </div>
-          <Button
-            variant='outlined'
-            color='inherit'
-            onClick={() => RedirectToLoginPage()}>
-            Login
-          </Button>
+          {astroCueUser ? (
+            <IconButton
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}>
+              <Avatar>
+                {`${astroCueUser.firstName.charAt(0)}${astroCueUser.lastName.charAt(0)}`}
+              </Avatar>
+            </IconButton>
+          )
+            : (
+            <Button
+              variant='outlined'
+              color='inherit'
+              onClick={() => router.push('/login')}>
+              Login
+            </Button>
+          )}
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={() => SignOut()}>
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </Box>

@@ -2,17 +2,17 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useIsLoggedIn } from './useIsLoggedIn';
 
-/** Hook that redirects to login page if user is not logged in yet */
-const useLoginRedirect = () => { 
+/** Hook that redirects logged in users to index. Use on routes like login and register forms etc... */
+const useRedirectLoggedInUsers = () => { 
   const isLoggedIn = useIsLoggedIn();
   const router = useRouter();
 
   useEffect(() => { 
-    if (!isLoggedIn) {
-      router.push('/login');
+    if (isLoggedIn) {
+      router.push('/');
       return;
     }
   }, [isLoggedIn, router]);
 }
 
-export default useLoginRedirect;
+export default useRedirectLoggedInUsers;

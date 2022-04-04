@@ -7,6 +7,8 @@ import { axiosInstance } from '../../lib/axios';
 import { useRouter } from 'next/router';
 import { config } from '../../lib/toast/Config';
 import { toast } from 'react-toastify';
+import OutboundAuthSuccessModel from '../../lib/auth/Models';
+import { SignIn } from '../../lib/auth/SignIn';
 
 /** Login form */
 const LoginForm = () => {
@@ -29,7 +31,8 @@ const LoginForm = () => {
     setLoading(true);
 
     try {
-      await axiosInstance.post('/auth/login', model);
+      const user = await axiosInstance.post<OutboundAuthSuccessModel>('/auth/login', model);
+      SignIn(user.data);
       router.push('/');
     } catch (err: any) {
       toast.error(err.response.data.message, config);

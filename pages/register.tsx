@@ -3,9 +3,12 @@ import { NextPage } from "next";
 import Link from "next/link";
 import Layout from "../src/components/Layout";
 import RegisterForm from "../src/Forms/register/RegisterForm";
+import useRedirectLoggedInUsers from "../src/lib/auth/useRedirectLoggedInUsers";
 
 /** User registration page */
 const Register: NextPage = () => {
+  useRedirectLoggedInUsers();
+  
   return (
     <Layout>
       <Grid

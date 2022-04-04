@@ -102,7 +102,7 @@ const RegisterForm = () => {
           loading={loading}
           disabled={!formik.isValid}
         >
-          Register with AstroCue!
+          Register
         </LoadingButton>
       </Stack>
     </form>

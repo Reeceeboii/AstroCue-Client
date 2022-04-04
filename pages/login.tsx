@@ -6,10 +6,13 @@ import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Layout from '../src/components/Layout';
 import LoginForm from '../src/Forms/login/LoginForm';
+import useRedirectLoggedInUsers from '../src/lib/auth/useRedirectLoggedInUsers';
 import { config } from '../src/lib/toast/Config';
 
 /** Login page */
 const Login: NextPage = () => {
+  useRedirectLoggedInUsers();
+  
   const router = useRouter();
   
   useEffect(() => { 
