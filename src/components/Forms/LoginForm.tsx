@@ -4,26 +4,41 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-import OutboundAuthSuccessModel from '../../lib/Auth/Models';
 import { SignIn } from '../../lib/Auth/SignIn';
 import { config } from '../../lib/Toast/Config';
 import {
   initialValues,
-  OutboundAuthModel,
+  InboundAuthModel,
   validationSchema,
-} from '../../lib/Models/OutboundAuthModel';
-import { axiosInstance } from '../../lib/Axios';
+} from '../../lib/Models/Auth/InboundAuthModel';
+import APIEndpoints from '../../lib/Constants/Endpoints';
+import useAxios from 'axios-hooks';
+import OutboundAuthSuccessModel from '../../lib/Models/Auth/OutboundAuthSuccessModel';
 
 /** Login form */
 const LoginForm = () => {
-  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
+  const [submitLocked, setSubmitLocked] = React.useState(false);
+
+  const [{ loading }, loginPost] = useAxios<OutboundAuthSuccessModel>(
+    {
+      url: APIEndpoints.Auth.Login,
+      method: 'POST',
+    },
+    { manual: true },
+  );
 
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
-    onSubmit: (model) => {
+    onSubmit: (model: InboundAuthModel) => {
+      setSubmitLocked(true);
       handleSubmitAsync(model);
+
+      /** This short timeout on the button lock prevents form spamming */
+      setTimeout(() => {
+        setSubmitLocked(false);
+      }, 1000);
     },
   });
 
@@ -31,21 +46,18 @@ const LoginForm = () => {
    * Handles submission of the login form
    * @param model Instance of {@link OutboundAuthModel} posted to server
    */
-  const handleSubmitAsync = async (model: OutboundAuthModel) => {
-    setLoading(true);
-
+  const handleSubmitAsync = async (model: InboundAuthModel) => {
     try {
-      const user = await axiosInstance.post<OutboundAuthSuccessModel>(
-        '/auth/login',
-        model,
-      );
-      SignIn(user.data);
+      const { data } = await loginPost({
+        data: model,
+      });
+
+      SignIn(data);
       router.push('/');
-    } catch (err: any) {
-      toast.error(err.response.data.message, config);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+      return;
+    } catch (error: any) {
+      toast.error(error.response.data.message, config);
+      return;
     }
   };
 
@@ -82,8 +94,8 @@ const LoginForm = () => {
         <LoadingButton
           variant='contained'
           type='submit'
-          loading={loading}
-          disabled={!formik.isValid}
+          loading={loading || submitLocked}
+          disabled={!formik.isValid || loading}
         >
           Login
         </LoadingButton>

@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 
-/** Model class reresenting an outgoing set of authentication credentials */
-export interface OutboundAuthModel {
+/** Model type reresenting an outgoing set of authentication credentials */
+export type InboundAuthModel = {
   /** The user's email address */
   emailAddress: string;
   /** The user's password */
   password: string;
-}
+};
 
 /** A set of initial values */
 export const initialValues = {

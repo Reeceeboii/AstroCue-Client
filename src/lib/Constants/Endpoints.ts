@@ -33,7 +33,7 @@ enum ObservationLocation {
   /** Delete observation location */
   Delete = '/observationLocation/delete',
   /** Get a static map for an observation location */
-  StaticMap = '/observationLocation/static-map/', // :id
+  StaticMap = '/observationLocation/static-map', // :id
 }
 
 enum Report {

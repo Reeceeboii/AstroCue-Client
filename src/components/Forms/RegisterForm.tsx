@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-import { axiosInstance } from '../../lib/Axios';
+import { axios } from '../../lib/Axios';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   initialValues,
@@ -35,7 +35,7 @@ const RegisterForm = () => {
     setLoading(true);
 
     try {
-      await axiosInstance.post(APIEndpoints.Auth.Register, model);
+      await axios.post(APIEndpoints.Auth.Register, model);
       router.push({
         pathname: '/login',
         query: {

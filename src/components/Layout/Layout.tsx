@@ -1,15 +1,15 @@
 import 'react-toastify/dist/ReactToastify.css';
-import { Paper } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import StandardHead from './StandardHeader';
-import Nav from '../Nav';
+import Nav from '../Navigation/NavBar';
 import { ToastContainer } from 'react-toastify';
 
 const Layout = ({ children }: any) => {
   return (
-    <div>
+    <Box sx={{ minWidth: '100vw', minHeight: '100vh', background: '#1e1e1e' }}>
       <StandardHead />
       <Nav />
-      <Paper style={{ minHeight: '100vh' }} elevation={1} square>
+      <Paper elevation={1} square>
         {children}
         <ToastContainer
           position='top-right'
@@ -24,7 +24,7 @@ const Layout = ({ children }: any) => {
           theme='dark'
         />
       </Paper>
-    </div>
+    </Box>
   );
 };
 

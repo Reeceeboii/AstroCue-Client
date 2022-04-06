@@ -9,8 +9,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { useAstroCueContext } from '../Context/AstroCueUser/AstroCueUserContext';
-import { SignOut } from '../lib/Auth/SignOut';
+import { useAstroCueContext } from '../../Context/AstroCueUserContext';
+import { SignOut } from '../../lib/Auth/SignOut';
 
 /** Nav bar */
 const Nav = () => {
