@@ -16,8 +16,11 @@ import APIEndpoints from '../../lib/Constants/Endpoints';
 import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
 
 interface IObservationLocationProps {
+  /** The location */
   location: OutboundObsLocationModel;
+  /** On delete callback */
   onDelete: (location: OutboundObsLocationModel) => void;
+  /** On edit callback */
   onEdit: (location: OutboundObsLocationModel) => void;
 }
 

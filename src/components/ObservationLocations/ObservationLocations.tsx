@@ -5,7 +5,7 @@ import ObservationLocation from './ObservationLocation';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import React, { useRef } from 'react';
 import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
-import DeleteDialog from './DeleteDialog';
+import DeleteObservationLocationDialog from './DeleteObservationLocationDialog';
 import NewDialog from './NewDialog';
 import EditDialog from './EditDialog';
 import { InboundObsLocationModel } from '../../lib/Models/Inbound/InboundObsLocationModel';
@@ -13,8 +13,7 @@ import { InboundObsLocationModel } from '../../lib/Models/Inbound/InboundObsLoca
 const ObservationLocations = () => {
   // contexts
   const { astroCueUser } = useAstroCueContext();
-  const { observationLocations, updateObservationLocations } =
-    useAstroCueObjectContext();
+  const { observationLocations } = useAstroCueObjectContext();
 
   // dialog states
   const [newDialogOpen, setNewDialogOpen] = React.useState(false);
@@ -93,7 +92,7 @@ const ObservationLocations = () => {
           )}
         </Grid>
       </Box>
-      <DeleteDialog
+      <DeleteObservationLocationDialog
         open={deleteDialogOpen}
         handleClose={() => setDeleteDialogOpen(false)}
         location={targetedForDeletetion.current}

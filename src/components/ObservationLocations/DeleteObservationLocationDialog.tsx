@@ -18,12 +18,15 @@ import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import React from 'react';
 
 interface IDeleteDialogProps {
+  /** Is the dialog open? */
   open: boolean;
+  /** The handle close callback */
   handleClose: () => void;
+  /** The location to delete */
   location: OutboundObsLocationModel | null;
 }
 
-const DeleteDialog = ({ ...props }: IDeleteDialogProps) => {
+const DeleteObservationLocationDialog = ({ ...props }: IDeleteDialogProps) => {
   const { updateObservationLocations } = useAstroCueObjectContext();
   const [submitLocked, setSubmitLocked] = React.useState(false);
 
@@ -38,10 +41,10 @@ const DeleteDialog = ({ ...props }: IDeleteDialogProps) => {
     { manual: true },
   );
 
-  const handleDelete = async () => {
+  const handleDeleteAsync = async () => {
     try {
       await deleteLocation();
-      await updateObservationLocations?.();
+      updateObservationLocations?.();
       props.handleClose();
       toast.success(`${props.location?.name} deleted!`, config);
     } catch (error: any) {
@@ -78,7 +81,7 @@ const DeleteDialog = ({ ...props }: IDeleteDialogProps) => {
           color='success'
           type='submit'
           startIcon={<DeleteForeverIcon />}
-          onClick={() => handleDelete()}
+          onClick={() => handleDeleteAsync()}
           loading={loading || submitLocked}
         >
           Delete
@@ -88,4 +91,4 @@ const DeleteDialog = ({ ...props }: IDeleteDialogProps) => {
   );
 };
 
-export default DeleteDialog;
+export default DeleteObservationLocationDialog;
