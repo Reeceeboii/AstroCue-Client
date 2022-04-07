@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import Layout from '../src/components/Layout/Layout';
 import LoginForm from '../src/components/Forms/LoginForm';
 import useRedirectLoggedInUsers from '../src/lib/Hooks/useRedirectLoggedInUsers';
 import { config } from '../src/lib/Toast/Config';
@@ -24,35 +23,33 @@ const Login: NextPage = () => {
   });
 
   return (
-    <Layout>
-      <Grid
-        container
-        alignItems='center'
-        justifyContent='center'
-        style={{ minHeight: '50vh' }}
-      >
-        <Container maxWidth='xs'>
-          <Stack spacing={2}>
-            <Typography variant='h4' align='center'>
-              Login
-            </Typography>
-            <LoginForm />
-            <Typography variant='body1' align='center'>
-              No account?
-              <Link href='/register' passHref>
-                <Typography
-                  sx={{ textDecoration: 'underline', cursor: 'pointer' }}
-                  variant='body1'
-                  color='primary'
-                >
-                  Register
-                </Typography>
-              </Link>
-            </Typography>
-          </Stack>
-        </Container>
-      </Grid>
-    </Layout>
+    <Grid
+      container
+      alignItems='center'
+      justifyContent='center'
+      sx={{ paddingTop: 15 }}
+    >
+      <Container maxWidth='xs'>
+        <Stack spacing={2}>
+          <Typography variant='h4' align='center'>
+            Login
+          </Typography>
+          <LoginForm />
+          <Typography variant='body1' align='center'>
+            No account?
+            <Link href='/register' passHref>
+              <Typography
+                sx={{ textDecoration: 'underline', cursor: 'pointer' }}
+                variant='body1'
+                color='primary'
+              >
+                Register
+              </Typography>
+            </Link>
+          </Typography>
+        </Stack>
+      </Container>
+    </Grid>
   );
 };
 

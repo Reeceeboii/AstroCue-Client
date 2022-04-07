@@ -1,19 +1,10 @@
 import useLocalStorage from '@rehooks/local-storage';
 import { createContext, useContext } from 'react';
-import LocalStorageKeys from '../../lib/Constants/LocalStorageKeys';
-
-/** Type representing an AstroCue user */
-type AstroCueUser = {
-  /** The user's first name */
-  firstName: string;
-  /** The user's last name */
-  lastName: string;
-  /** The user's email address */
-  emailAddress: string;
-};
+import LocalStorageKeys from '../lib/Constants/LocalStorageKeys';
+import { AstroCueUser } from '../lib/Models/AstroCueUser';
 
 /** Interface representing the AstroCue user context*/
-interface AstroCueUserContext {
+interface AstroCueUserContextValues {
   /** User */
   astroCueUser?: AstroCueUser;
   /** Sets user */
@@ -25,7 +16,7 @@ interface AstroCueUserContext {
 }
 
 /** AstroCueUserContext */
-const AstroCueUserContext = createContext<AstroCueUserContext>({
+const AstroCueUserContext = createContext<AstroCueUserContextValues>({
   astroCueUser: undefined,
   setAstroCueUser: () => {},
   token: undefined,

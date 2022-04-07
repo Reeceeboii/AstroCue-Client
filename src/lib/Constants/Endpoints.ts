@@ -28,12 +28,14 @@ enum Observation {
 enum ObservationLocation {
   /** Create a new observation location */
   New = '/observationLocation/new',
+  /** Edit an existing observation location */
+  Edit = '/observationLocation/edit',
   /** Get all observation locations */
   All = '/observationLocation/all',
   /** Delete observation location */
   Delete = '/observationLocation/delete',
   /** Get a static map for an observation location */
-  StaticMap = '/observationLocation/static-map/', // :id
+  StaticMap = '/observationLocation/static-map', // :id
 }
 
 enum Report {
