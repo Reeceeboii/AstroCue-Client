@@ -6,8 +6,8 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import React, { useRef } from 'react';
 import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
 import DeleteObservationLocationDialog from './DeleteObservationLocationDialog';
-import NewDialog from './NewDialog';
-import EditDialog from './EditDialog';
+import NewObservationLocationDialog from './NewObservationLocationDialog';
+import EditObservationLocationDialog from './EditObservationLocationDialog';
 import { InboundObsLocationModel } from '../../lib/Models/Inbound/InboundObsLocationModel';
 
 const ObservationLocations = () => {
@@ -97,11 +97,11 @@ const ObservationLocations = () => {
         handleClose={() => setDeleteDialogOpen(false)}
         location={targetedForDeletetion.current}
       />
-      <NewDialog
+      <NewObservationLocationDialog
         open={newDialogOpen}
         handleClose={() => setNewDialogOpen(false)}
       />
-      <EditDialog
+      <EditObservationLocationDialog
         open={editDialogOpen}
         handleClose={() => setEditDialogOpen(false)}
         location={targetedForEdit.current}

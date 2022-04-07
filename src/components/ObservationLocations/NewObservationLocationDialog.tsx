@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import useAxios from 'axios-hooks';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   InboundObsLocationModel,
@@ -29,21 +29,19 @@ import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import { toast } from 'react-toastify';
 import { config } from '../../lib/Toast/Config';
 
-interface IEditDialogProps {
+interface INewDialogProps {
   open: boolean;
-  location: InboundObsLocationModel | null;
-  targetedId: number;
   handleClose: () => void;
 }
 
-const EditDialog = ({ ...props }: IEditDialogProps) => {
+const NewObservationLocationDialog = ({ ...props }: INewDialogProps) => {
   const [submitLocked, setSubmitLocked] = React.useState(false);
   const { updateObservationLocations } = useAstroCueObjectContext();
 
-  const [{ loading }, editLocationPost] = useAxios<InboundObsLocationModel>(
+  const [{ loading }, newLocationPost] = useAxios<InboundObsLocationModel>(
     {
-      url: APIEndpoints.ObservationLocation.Edit,
-      method: 'PATCH',
+      url: APIEndpoints.ObservationLocation.New,
+      method: 'POST',
     },
     { manual: true },
   );
@@ -52,11 +50,7 @@ const EditDialog = ({ ...props }: IEditDialogProps) => {
     React.useState(false);
 
   const formik = useFormik({
-    initialValues: {
-      name: props.location?.name ?? '',
-      latitude: props.location?.latitude ?? initialValues.latitude,
-      longitude: props.location?.longitude ?? initialValues.longitude,
-    },
+    initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (model: InboundObsLocationModel) => {
       setSubmitLocked(true);
@@ -66,16 +60,12 @@ const EditDialog = ({ ...props }: IEditDialogProps) => {
         setSubmitLocked(false);
       }, 1000);
     },
-    enableReinitialize: true,
   });
 
   const handleSubmitAsync = async (model: InboundObsLocationModel) => {
     try {
-      await editLocationPost({
+      const { data } = await newLocationPost({
         data: model,
-        params: {
-          id: props.targetedId,
-        },
       });
       updateObservationLocations?.();
       props.handleClose();
@@ -90,10 +80,11 @@ const EditDialog = ({ ...props }: IEditDialogProps) => {
 
   return (
     <Dialog open={props.open} keepMounted onClose={props.handleClose}>
-      <DialogTitle>Editing &apos;{props.location?.name}&apos;</DialogTitle>
+      <DialogTitle>New observation location</DialogTitle>
       <DialogContent>
         <DialogContentText paragraph>
-          Accompanying data will be updated automatically
+          To create a new observation location, please fill out the following
+          details.
         </DialogContentText>
         <form onSubmit={formik.handleSubmit}>
           <Stack direction='column' spacing={2}>
@@ -125,7 +116,7 @@ const EditDialog = ({ ...props }: IEditDialogProps) => {
               }
               fullWidth
             />
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
               <TextField
                 name='latitude'
                 label='Latitude'
@@ -177,7 +168,7 @@ const EditDialog = ({ ...props }: IEditDialogProps) => {
               loading={loading || submitLocked}
               disabled={!formik.isValid}
             >
-              Confirm edits
+              Confirm
             </LoadingButton>
           </DialogActions>
         </form>
@@ -191,4 +182,4 @@ const EditDialog = ({ ...props }: IEditDialogProps) => {
   );
 };
 
-export default EditDialog;
+export default NewObservationLocationDialog;
