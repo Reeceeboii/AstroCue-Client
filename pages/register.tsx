@@ -9,7 +9,12 @@ const Register: NextPage = () => {
   useRedirectLoggedInUsers();
 
   return (
-    <Grid container alignItems='center' justifyContent='center'>
+    <Grid
+      container
+      alignItems='center'
+      justifyContent='center'
+      sx={{ paddingTop: 15 }}
+    >
       <Container maxWidth='xs'>
         <Stack spacing={2}>
           <Typography variant='h4' align='center'>
