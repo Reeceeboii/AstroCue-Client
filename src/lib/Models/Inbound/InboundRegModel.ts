@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 /** Model class representing a new user registration attempt */
-export interface OutboundRegModel {
+export interface InboundRegModel {
   /** The user's email address */
   emailAddress: string;
   /** The user's first name */

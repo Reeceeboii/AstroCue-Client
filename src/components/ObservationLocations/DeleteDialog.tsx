@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { OutboundObsLocationModel } from '../../lib/Models/ObservationLocations/OutboundObsLocationModel';
+import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
 import { LoadingButton } from '@mui/lab';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import useAxios from 'axios-hooks';

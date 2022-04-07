@@ -22,7 +22,7 @@ import {
   InboundObsLocationModel,
   initialValues,
   validationSchema,
-} from '../../lib/Models/ObservationLocations/InboundObsLocationModel';
+} from '../../lib/Models/Inbound/InboundObsLocationModel';
 import ForwardGeocodeDialog from './ForwardGeocodeDialog';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';

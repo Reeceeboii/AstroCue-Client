@@ -2,7 +2,7 @@ import useAxios from 'axios-hooks';
 import { createContext, useContext, useEffect } from 'react';
 import APIEndpoints from '../lib/Constants/Endpoints';
 import useIsLoggedIn from '../lib/Hooks/useIsLoggedIn';
-import { OutboundObsLocationModel } from '../lib/Models/ObservationLocations/OutboundObsLocationModel';
+import { OutboundObsLocationModel } from '../lib/Models/Outbound/OutboundObsLocationModel';
 
 /** Interface representing the values stored in the data context */
 interface AstroCueObjectContextValues {

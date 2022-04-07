@@ -13,7 +13,7 @@ import useAxios from 'axios-hooks';
 import Image from 'next/image';
 import React, { useEffect } from 'react';
 import APIEndpoints from '../../lib/Constants/Endpoints';
-import { OutboundObsLocationModel } from '../../lib/Models/ObservationLocations/OutboundObsLocationModel';
+import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
 
 interface IObservationLocationProps {
   location: OutboundObsLocationModel;

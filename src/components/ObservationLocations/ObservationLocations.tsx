@@ -4,11 +4,11 @@ import { useAstroCueContext } from '../../Context/AstroCueUserContext';
 import ObservationLocation from './ObservationLocation';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import React, { useRef } from 'react';
-import { OutboundObsLocationModel } from '../../lib/Models/ObservationLocations/OutboundObsLocationModel';
+import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
 import DeleteDialog from './DeleteDialog';
 import NewDialog from './NewDialog';
 import EditDialog from './EditDialog';
-import { InboundObsLocationModel } from '../../lib/Models/ObservationLocations/InboundObsLocationModel';
+import { InboundObsLocationModel } from '../../lib/Models/Inbound/InboundObsLocationModel';
 
 const ObservationLocations = () => {
   // contexts

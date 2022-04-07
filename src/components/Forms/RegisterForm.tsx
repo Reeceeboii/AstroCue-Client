@@ -8,9 +8,9 @@ import { toast } from 'react-toastify';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   initialValues,
-  OutboundRegModel,
+  InboundRegModel,
   validationSchema,
-} from '../../lib/Models/OutboundRegModel';
+} from '../../lib/Models/Inbound/InboundRegModel';
 import { config } from '../../lib/Toast/Config';
 
 /** New user registration form */
@@ -21,7 +21,7 @@ const RegisterForm = () => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
-    onSubmit: (model: OutboundRegModel) => {
+    onSubmit: (model: InboundRegModel) => {
       setSubmitLocked(true);
       handleSubmitAsync(model);
 
@@ -32,7 +32,7 @@ const RegisterForm = () => {
     },
   });
 
-  const [{ loading }, registerPost] = useAxios<OutboundRegModel>(
+  const [{ loading }, registerPost] = useAxios<InboundRegModel>(
     {
       url: APIEndpoints.Auth.Register,
       method: 'POST',
@@ -47,7 +47,7 @@ const RegisterForm = () => {
    * @param model Instance of {@link OutboundRegModel} posted to server
    * @param model
    */
-  const handleSubmitAsync = async (model: OutboundRegModel) => {
+  const handleSubmitAsync = async (model: InboundRegModel) => {
     try {
       await registerPost({
         data: model,
