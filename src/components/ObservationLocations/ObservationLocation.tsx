@@ -1,11 +1,11 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 import {
   Card,
   CardActions,
   CardContent,
   CardMedia,
   IconButton,
-  Skeleton,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -18,15 +18,13 @@ import { OutboundObsLocationModel } from '../../lib/Models/ObservationLocations/
 interface IObservationLocationProps {
   location: OutboundObsLocationModel;
   onDelete: (location: OutboundObsLocationModel) => void;
+  onEdit: (location: OutboundObsLocationModel) => void;
 }
 
-const ObservationLocation = ({
-  location,
-  onDelete: deleteCallback,
-}: IObservationLocationProps) => {
-  const [{ loading }, fetchStaticMapImage] = useAxios(
+const ObservationLocation = ({ ...props }: IObservationLocationProps) => {
+  const [{}, fetchStaticMapImage] = useAxios(
     {
-      url: `${APIEndpoints.ObservationLocation.StaticMap}/${location.id}`,
+      url: `${APIEndpoints.ObservationLocation.StaticMap}/${props.location.id}`,
       params: {
         asBase64: true,
       },
@@ -52,47 +50,44 @@ const ObservationLocation = ({
   }, [fetchStaticMapImage, setBase64MapData, base64MapData]);
 
   return (
-    <Card elevation={5}>
+    <Card elevation={5} sx={{ height: '100%' }}>
       <CardMedia>
-        {loading || base64MapData === 'data:image/png;base64,' ? (
-          <Skeleton
-            variant='rectangular'
-            animation='wave'
-            width='100%'
-            height={275}
-          />
-        ) : (
-          <Image
-            src={base64MapData}
-            alt={`Map of ${location.name}`}
-            width={400}
-            height={275}
-            layout='responsive'
-            objectFit='contain'
-          />
-        )}
+        <Image
+          src={base64MapData}
+          alt={`Map of ${props.location.name}`}
+          placeholder='blur'
+          blurDataURL='/map_blur.png'
+          width={400}
+          height={275}
+          layout='responsive'
+        />
       </CardMedia>
       <CardContent>
-        <Typography variant='h5'>{location.name}</Typography>
-        <Typography variant='subtitle1' color='GrayText'>
-          {`${location.latitude}, ${location.longitude}`}
+        <Typography variant='h5'>{props.location.name}</Typography>
+        <Typography variant='h6'>
+          {`${props.location.latitude}, ${props.location.longitude}`}
         </Typography>
         <Typography variant='body2'>
-          {`${location.singleForecast.description}`}
+          {`${props.location.bortleDesc}`}
         </Typography>
-        <Typography variant='body2'>
-          {`🌡️ ${location.singleForecast.temperatureCelcius}°C ☁️ ${location.singleForecast.cloudCoveragePercent}%`}
+        <Typography display='inline' variant='body2' color='text.disabled'>
+          {`${props.location.singleForecast.description} | ${props.location.singleForecast.temperatureCelcius}°C | `}
+        </Typography>
+        <Typography display='inline' variant='body2' color='text.disabled'>
+          {`${props.location.singleForecast.cloudCoveragePercent}% clouds`}
         </Typography>
       </CardContent>
-      <CardActions sx={{ justifyContent: 'space-between' }}>
-        <Tooltip title={`Delete ${location.name}`}>
-          <IconButton onClick={() => deleteCallback(location)}>
-            <DeleteForeverIcon sx={{ justifyContent: 'right' }} />
+      <CardActions sx={{ justifyContent: 'flex-start' }}>
+        <Tooltip title={`Delete ${props.location.name}`}>
+          <IconButton onClick={() => props.onDelete(props.location)}>
+            <DeleteForeverIcon />
           </IconButton>
         </Tooltip>
-        <Typography display='inline' variant='subtitle2' color='GrayText'>
-          {`${location.bortleDesc}`}
-        </Typography>
+        <Tooltip title={`Edit ${props.location.name}`}>
+          <IconButton onClick={() => props.onEdit(props.location)}>
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
       </CardActions>
     </Card>
   );

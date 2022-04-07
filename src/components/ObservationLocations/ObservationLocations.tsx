@@ -7,27 +7,34 @@ import React, { useRef } from 'react';
 import { OutboundObsLocationModel } from '../../lib/Models/ObservationLocations/OutboundObsLocationModel';
 import DeleteDialog from './DeleteDialog';
 import NewDialog from './NewDialog';
+import EditDialog from './EditDialog';
+import { InboundObsLocationModel } from '../../lib/Models/ObservationLocations/InboundObsLocationModel';
 
 const ObservationLocations = () => {
+  // contexts
   const { astroCueUser } = useAstroCueContext();
-  const { observationLocations } = useAstroCueObjectContext();
+  const { observationLocations, updateObservationLocations } =
+    useAstroCueObjectContext();
 
-  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  // dialog states
   const [newDialogOpen, setNewDialogOpen] = React.useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [editDialogOpen, setEditDialogOpen] = React.useState(false);
 
+  // edit and delete references
   const targetedForDeletetion = useRef<OutboundObsLocationModel | null>(null);
+  const targetedForEdit = useRef<InboundObsLocationModel | null>(null);
+  const targetedForEditId = useRef<number>(0);
 
   const onDeleteLocation = (location: OutboundObsLocationModel) => {
     targetedForDeletetion.current = location;
     setDeleteDialogOpen(true);
   };
 
-  const handleConfirmDeleteDialogClose = () => {
-    setDeleteDialogOpen(false);
-  };
-
-  const handleNewDialogClose = () => {
-    setNewDialogOpen(false);
+  const onEditLocation = (location: OutboundObsLocationModel) => {
+    targetedForEdit.current = location;
+    targetedForEditId.current = location.id;
+    setEditDialogOpen(true);
   };
 
   return (
@@ -43,18 +50,34 @@ const ObservationLocations = () => {
       </Box>
       <Box
         sx={{
-          marginLeft: '15vw',
-          marginRight: '15vw',
+          marginLeft: '20',
+          marginRight: '20',
         }}
       >
-        <Grid container alignItems='center' justifyContent='center' spacing={2}>
+        <Grid
+          container
+          alignItems='stretch'
+          justifyContent='center'
+          spacing={2}
+        >
           {observationLocations !== undefined &&
           observationLocations.length !== 0 ? (
             observationLocations?.map((observationLocation) => (
-              <Grid item xs={12} sm={6} md={4} key={observationLocation.id}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={8}
+                lg={3}
+                key={`${observationLocation.name}
+                ${observationLocation.latitude}
+                ${observationLocation.longitude}`}
+              >
                 <ObservationLocation
+                  key={observationLocation.id}
                   location={observationLocation}
                   onDelete={onDeleteLocation}
+                  onEdit={onEditLocation}
                 />
               </Grid>
             ))
@@ -72,10 +95,19 @@ const ObservationLocations = () => {
       </Box>
       <DeleteDialog
         open={deleteDialogOpen}
-        handleClose={handleConfirmDeleteDialogClose}
+        handleClose={() => setDeleteDialogOpen(false)}
         location={targetedForDeletetion.current}
       />
-      <NewDialog open={newDialogOpen} handleClose={handleNewDialogClose} />?
+      <NewDialog
+        open={newDialogOpen}
+        handleClose={() => setNewDialogOpen(false)}
+      />
+      <EditDialog
+        open={editDialogOpen}
+        handleClose={() => setEditDialogOpen(false)}
+        location={targetedForEdit.current}
+        targetedId={targetedForEditId.current}
+      />
     </div>
   );
 };

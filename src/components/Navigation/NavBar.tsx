@@ -28,64 +28,62 @@ const Nav = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static'>
-        <Toolbar>
-          <div style={{ flexGrow: 1, cursor: 'pointer' }}>
-            <Image
-              src='/logo_light.png'
-              alt='logo'
-              width={240}
-              height={42.5}
-              onClick={() => router.push('/')}
-            />
-          </div>
-          {astroCueUser ? (
-            <IconButton
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={handleMenu}
-            >
-              <Avatar>
-                {`${astroCueUser.firstName.charAt(
-                  0,
-                )}${astroCueUser.lastName.charAt(0)}`}
-              </Avatar>
-            </IconButton>
-          ) : (
-            <Button
-              variant='outlined'
-              color='inherit'
-              onClick={() => router.push('/login')}
-            >
-              Login
-            </Button>
-          )}
-          <Menu
-            id='menu-appbar'
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+    <AppBar position='static'>
+      <Toolbar>
+        <div style={{ flexGrow: 1, cursor: 'pointer' }}>
+          <Image
+            src='/logo_light.png'
+            alt='logo'
+            width={240}
+            height={42.5}
+            onClick={() => router.push('/')}
+          />
+        </div>
+        {astroCueUser ? (
+          <IconButton
+            aria-controls='menu-appbar'
+            aria-haspopup='true'
+            onClick={handleMenu}
           >
-            <MenuItem onClick={() => SignOut()}>
-              <ListItemIcon>
-                <LogoutIcon fontSize='small' />
-              </ListItemIcon>
-              <ListItemText primary='Logout' />
-            </MenuItem>
-          </Menu>
-        </Toolbar>
-      </AppBar>
-    </Box>
+            <Avatar>
+              {`${astroCueUser.firstName.charAt(
+                0,
+              )}${astroCueUser.lastName.charAt(0)}`}
+            </Avatar>
+          </IconButton>
+        ) : (
+          <Button
+            variant='outlined'
+            color='inherit'
+            onClick={() => router.push('/login')}
+          >
+            Login
+          </Button>
+        )}
+        <Menu
+          id='menu-appbar'
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={() => SignOut()}>
+            <ListItemIcon>
+              <LogoutIcon fontSize='small' />
+            </ListItemIcon>
+            <ListItemText primary='Logout' />
+          </MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
 };
 

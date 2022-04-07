@@ -6,7 +6,6 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import Layout from '../src/components/Layout/Layout';
 import ObservationLocations from '../src/components/ObservationLocations/ObservationLocations';
 import useLoginRedirect from '../src/lib/Hooks/useLoginRedirect';
 
@@ -51,49 +50,47 @@ const Home: NextPage = () => {
   };
 
   return (
-    <Layout>
-      <TabContext value={tabIndex}>
-        <Box display='flex' justifyContent='center' width='100%'>
-          <TabList
-            scrollButtons
-            allowScrollButtonsMobile
-            onChange={handleChange}
-            variant='scrollable'
-          >
-            {Tabs.map((tab, index) => (
-              <Tab
-                key={index}
-                icon={tab.icon}
-                iconPosition='start'
-                label={tab.label}
-                value={(index + 1).toString()}
-              />
-            ))}
-          </TabList>
-        </Box>
+    <TabContext value={tabIndex}>
+      <Box display='flex' justifyContent='center' width='100%'>
+        <TabList
+          scrollButtons
+          allowScrollButtonsMobile
+          onChange={handleChange}
+          variant='scrollable'
+        >
+          {Tabs.map((tab, index) => (
+            <Tab
+              key={index}
+              icon={tab.icon}
+              iconPosition='start'
+              label={tab.label}
+              value={(index + 1).toString()}
+            />
+          ))}
+        </TabList>
+      </Box>
 
-        {Tabs.map((tab, index) => (
-          <TabPanel
-            key={index}
-            value={(index + 1).toString()}
-            sx={{ padding: 0 }}
+      {Tabs.map((tab, index) => (
+        <TabPanel
+          key={index}
+          value={(index + 1).toString()}
+          sx={{ paddingTop: 5 }}
+        >
+          <Typography variant='h4' align='center' paragraph>
+            {tab.longTitle}
+          </Typography>
+          <Typography
+            display='block'
+            color='textSecondary'
+            variant='caption'
+            align='center'
           >
-            <Typography variant='h5' align='center'>
-              {tab.longTitle}
-            </Typography>
-            <Typography
-              display='block'
-              color='textSecondary'
-              variant='caption'
-              align='center'
-            >
-              {tab.description}
-            </Typography>
-            {tab.component}
-          </TabPanel>
-        ))}
-      </TabContext>
-    </Layout>
+            {tab.description}
+          </Typography>
+          <Box sx={{ height: '100vh' }}>{tab.component}</Box>
+        </TabPanel>
+      ))}
+    </TabContext>
   );
 };
 

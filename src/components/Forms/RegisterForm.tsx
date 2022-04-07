@@ -1,10 +1,10 @@
 import { LoadingButton } from '@mui/lab';
 import { Stack, TextField } from '@mui/material';
+import useAxios from 'axios-hooks';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-import { axios } from '../../lib/Axios';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   initialValues,
@@ -15,16 +15,32 @@ import { config } from '../../lib/Toast/Config';
 
 /** New user registration form */
 const RegisterForm = () => {
-  const [loading, setLoading] = React.useState(false);
+  const [submitLocked, setSubmitLocked] = React.useState(false);
   const router = useRouter();
 
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (model: OutboundRegModel) => {
+      setSubmitLocked(true);
       handleSubmitAsync(model);
+
+      /** This short timeout on the button lock prevents form spamming */
+      setTimeout(() => {
+        setSubmitLocked(false);
+      }, 1000);
     },
   });
+
+  const [{ loading }, registerPost] = useAxios<OutboundRegModel>(
+    {
+      url: APIEndpoints.Auth.Register,
+      method: 'POST',
+    },
+    {
+      manual: true,
+    },
+  );
 
   /**
    * Handles submission of the registration form
@@ -32,10 +48,11 @@ const RegisterForm = () => {
    * @param model
    */
   const handleSubmitAsync = async (model: OutboundRegModel) => {
-    setLoading(true);
-
     try {
-      await axios.post(APIEndpoints.Auth.Register, model);
+      await registerPost({
+        data: model,
+      });
+
       router.push({
         pathname: '/login',
         query: {
@@ -49,11 +66,8 @@ const RegisterForm = () => {
             model.firstName.charAt(0).toUpperCase() + model.firstName.slice(1),
         },
       });
-    } catch (err: any) {
-      toast.error(err.response.data.message, config);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+    } catch (error: any) {
+      toast.error(error.response.data.message, config);
     }
   };
 
@@ -116,8 +130,8 @@ const RegisterForm = () => {
         <LoadingButton
           variant='contained'
           type='submit'
-          loading={loading}
-          disabled={!formik.isValid}
+          loading={loading || submitLocked}
+          disabled={!formik.isValid || loading}
         >
           Register
         </LoadingButton>

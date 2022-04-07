@@ -28,6 +28,8 @@ enum Observation {
 enum ObservationLocation {
   /** Create a new observation location */
   New = '/observationLocation/new',
+  /** Edit an existing observation location */
+  Edit = '/observationLocation/edit',
   /** Get all observation locations */
   All = '/observationLocation/all',
   /** Delete observation location */

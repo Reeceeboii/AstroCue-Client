@@ -25,7 +25,9 @@ export const AstroCueObjectContextProvider: React.FC = ({ children }) => {
 
   const [{ data: observationLocations }, updateObservationLocations] = useAxios<
     OutboundObsLocationModel[]
-  >(APIEndpoints.ObservationLocation.All);
+  >(APIEndpoints.ObservationLocation.All, {
+    manual: true,
+  });
 
   useEffect(() => {
     if (isLoggedIn) {
