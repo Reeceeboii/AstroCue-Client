@@ -38,7 +38,8 @@ interface IEditDialogProps {
 
 const EditObservationLocationDialog = ({ ...props }: IEditDialogProps) => {
   const [submitLocked, setSubmitLocked] = React.useState(false);
-  const { updateObservationLocations } = useAstroCueObjectContext();
+  const { updateObservationLocations, updateObservations } =
+    useAstroCueObjectContext();
 
   const [{ loading }, editLocationPost] = useAxios<InboundObsLocationModel>(
     {
@@ -78,6 +79,7 @@ const EditObservationLocationDialog = ({ ...props }: IEditDialogProps) => {
         },
       });
       updateObservationLocations?.();
+      updateObservations?.();
       props.handleClose();
     } catch (error: any) {
       toast.error(error.response.data.message, config);

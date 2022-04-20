@@ -47,49 +47,32 @@ const ObservationLocations = () => {
           Add Location
         </Button>
       </Box>
-      <Box
-        sx={{
-          marginLeft: '20',
-          marginRight: '20',
-        }}
-      >
+      <Box>
         <Grid
           container
           alignItems='stretch'
           justifyContent='center'
           spacing={2}
         >
-          {observationLocations !== undefined &&
-          observationLocations.length !== 0 ? (
-            observationLocations?.map((observationLocation) => (
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={8}
-                lg={3}
-                key={`${observationLocation.name}
+          {observationLocations?.map((observationLocation) => (
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={8}
+              lg={3}
+              key={`${observationLocation.id}
+                ${observationLocation.name}
                 ${observationLocation.latitude}
                 ${observationLocation.longitude}`}
-              >
-                <ObservationLocation
-                  key={observationLocation.id}
-                  location={observationLocation}
-                  onDelete={onDeleteLocation}
-                  onEdit={onEditLocation}
-                />
-              </Grid>
-            ))
-          ) : (
-            <Box paddingTop={5}>
-              <Typography variant='subtitle1' align='center'>
-                {`You don't have any observation locations yet, ${astroCueUser?.firstName}.`}
-              </Typography>
-              <Typography variant='subtitle1' align='center'>
-                Add your first one using the button above!
-              </Typography>
-            </Box>
-          )}
+            >
+              <ObservationLocation
+                location={observationLocation}
+                onDelete={onDeleteLocation}
+                onEdit={onEditLocation}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Box>
       <DeleteObservationLocationDialog

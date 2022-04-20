@@ -1,4 +1,4 @@
-import { LocationMagnitudeModel } from './../Misc/LocationMagnitudeModel';
+import { LocationVisibilityModel } from '../Misc/LocationVisibilityModel';
 
 /** Model type representing an astronomical object retrieved from the server */
 export type OutboundAstronomicalObjectModel = {
@@ -12,8 +12,8 @@ export type OutboundAstronomicalObjectModel = {
   type?: string;
   /** The object's apparent magnitude */
   apparentMagnitude: number;
-  /** The object's {@link LocationMagnitudeModel} */
-  locationVMagReport: LocationMagnitudeModel;
+  /** The object's {@link LocationVisibilityModel} */
+  locationVisibilityModel: LocationVisibilityModel;
   /** A link to discover more information about the object */
   moreInformation?: string;
 };

@@ -6,13 +6,13 @@ import { ToastContainer } from 'react-toastify';
 
 const Layout = ({ children }: any) => {
   return (
-    <Paper square elevation={1} sx={{ minHeight: '100vh' }}>
+    <Paper square elevation={0}>
       <StandardHead />
       <Nav />
       {children}
       <ToastContainer
-        position='top-right'
-        autoClose={5000}
+        position='bottom-right'
+        autoClose={3500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -27,7 +27,8 @@ interface IDeleteDialogProps {
 }
 
 const DeleteObservationLocationDialog = ({ ...props }: IDeleteDialogProps) => {
-  const { updateObservationLocations } = useAstroCueObjectContext();
+  const { updateObservationLocations, updateObservations } =
+    useAstroCueObjectContext();
   const [submitLocked, setSubmitLocked] = React.useState(false);
 
   const [{ loading }, deleteLocation] = useAxios<OutboundObsLocationModel>(
@@ -45,6 +46,7 @@ const DeleteObservationLocationDialog = ({ ...props }: IDeleteDialogProps) => {
     try {
       await deleteLocation();
       updateObservationLocations?.();
+      updateObservations?.();
       props.handleClose();
       toast.success(`${props.location?.name} deleted!`, config);
     } catch (error: any) {

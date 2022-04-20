@@ -85,12 +85,14 @@ const Home: NextPage = () => {
           <Typography
             display='block'
             color='textSecondary'
-            variant='caption'
+            variant='body1'
             align='center'
           >
             {tab.description}
           </Typography>
-          <Box sx={{ height: '100vh' }}>{tab.component}</Box>
+          <Box sx={{ marginLeft: '5vw', marginRight: '5vw' }}>
+            {tab.component}
+          </Box>
         </TabPanel>
       ))}
     </TabContext>

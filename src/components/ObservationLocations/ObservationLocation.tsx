@@ -53,7 +53,10 @@ const ObservationLocation = ({ ...props }: IObservationLocationProps) => {
   }, [fetchStaticMapImage, setBase64MapData, base64MapData]);
 
   return (
-    <Card elevation={5} sx={{ height: '100%' }}>
+    <Card
+      elevation={5}
+      sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+    >
       <CardMedia>
         <Image
           src={base64MapData}
@@ -65,7 +68,7 @@ const ObservationLocation = ({ ...props }: IObservationLocationProps) => {
           layout='responsive'
         />
       </CardMedia>
-      <CardContent>
+      <CardContent sx={{ flexGrow: 1 }}>
         <Typography variant='h5'>{props.location.name}</Typography>
         <Typography variant='h6'>
           {`${props.location.latitude}, ${props.location.longitude}`}

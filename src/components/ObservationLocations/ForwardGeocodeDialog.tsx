@@ -81,6 +81,8 @@ const ForwardGeocodeDialog = ({ ...props }: IForwardGeocodeDialogProps) => {
         </DialogContentText>
         <form onSubmit={formik.handleSubmit}>
           <Autocomplete
+            filterOptions={(x) => x}
+            loading={loading}
             value={selected}
             onChange={(_event: React.ChangeEvent<{}>, value: any) => {
               handleSetLocation(value.text, value.latitude, value.longitude);

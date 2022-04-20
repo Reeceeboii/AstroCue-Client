@@ -20,8 +20,16 @@ interface IObservationProps {
 
 const Observation = ({ ...props }: IObservationProps) => {
   return (
-    <Card elevation={5} sx={{ height: '100%' }}>
-      <CardContent>
+    <Card
+      elevation={5}
+      sx={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <CardContent sx={{ flexGrow: 1 }}>
         <Link
           href={props.observation.astronomicalObject.moreInformation || ''}
           target='_blank'
@@ -29,17 +37,16 @@ const Observation = ({ ...props }: IObservationProps) => {
         >
           <Typography
             sx={{ textDecoration: 'underline', cursor: 'pointer' }}
-            display='inline'
             variant='h5'
           >
             {`${props.observation.astronomicalObject.name}`}
           </Typography>
         </Link>
-        <Typography display='inline' variant='body1' color='text.disabled'>
-          {` (${props.observation.astronomicalObject.type})`}
-        </Typography>
         <Typography variant='subtitle2' color='text.secondary'>
           {`Apparent magnitude: ${props.observation.astronomicalObject.apparentMagnitude}`}
+        </Typography>
+        <Typography display='inline' variant='caption' color='text.disabled'>
+          {` (${props.observation.astronomicalObject.type})`}
         </Typography>
         <Divider>
           <Typography variant='overline'>Is being observed from</Typography>
@@ -47,11 +54,14 @@ const Observation = ({ ...props }: IObservationProps) => {
         <Typography variant='h5'>
           {props.observation.observationLocation.name}
         </Typography>
-        <Typography variant='subtitle2' color='text.secondary'>
+        <Typography variant='subtitle1' color='text.secondary'>
           {`${props.observation.observationLocation.latitude}, ${props.observation.observationLocation.longitude}`}
         </Typography>
+        <Typography variant='caption'>
+          {props.observation.observationLocation.bortleDesc}
+        </Typography>
       </CardContent>
-      <CardActions sx={{ justifyContent: 'flex-start' }}>
+      <CardActions>
         <Tooltip title='Delete observation'>
           <IconButton onClick={() => props.onDelete(props.observation)}>
             <DeleteForeverIcon />

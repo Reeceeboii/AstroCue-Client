@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import useAxios from 'axios-hooks';
 import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   InboundObsLocationModel,
@@ -30,7 +30,9 @@ import { toast } from 'react-toastify';
 import { config } from '../../lib/Toast/Config';
 
 interface INewDialogProps {
+  /** Is the dialog open? */
   open: boolean;
+  /** The handle close callback */
   handleClose: () => void;
 }
 
@@ -60,6 +62,7 @@ const NewObservationLocationDialog = ({ ...props }: INewDialogProps) => {
         setSubmitLocked(false);
       }, 1000);
     },
+    validateOnMount: true,
   });
 
   const handleSubmitAsync = async (model: InboundObsLocationModel) => {
