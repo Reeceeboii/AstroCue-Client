@@ -22,7 +22,7 @@ import {
   InboundObsLocationModel,
   initialValues,
   validationSchema,
-} from '../../lib/Models/ObservationLocations/InboundObsLocationModel';
+} from '../../lib/Models/Inbound/InboundObsLocationModel';
 import ForwardGeocodeDialog from './ForwardGeocodeDialog';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
@@ -36,9 +36,10 @@ interface IEditDialogProps {
   handleClose: () => void;
 }
 
-const EditDialog = ({ ...props }: IEditDialogProps) => {
+const EditObservationLocationDialog = ({ ...props }: IEditDialogProps) => {
   const [submitLocked, setSubmitLocked] = React.useState(false);
-  const { updateObservationLocations } = useAstroCueObjectContext();
+  const { updateObservationLocations, updateObservations } =
+    useAstroCueObjectContext();
 
   const [{ loading }, editLocationPost] = useAxios<InboundObsLocationModel>(
     {
@@ -78,6 +79,7 @@ const EditDialog = ({ ...props }: IEditDialogProps) => {
         },
       });
       updateObservationLocations?.();
+      updateObservations?.();
       props.handleClose();
     } catch (error: any) {
       toast.error(error.response.data.message, config);
@@ -191,4 +193,4 @@ const EditDialog = ({ ...props }: IEditDialogProps) => {
   );
 };
 
-export default EditDialog;
+export default EditObservationLocationDialog;

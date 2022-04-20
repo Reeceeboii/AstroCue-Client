@@ -10,10 +10,10 @@ import {
   initialValues,
   InboundAuthModel,
   validationSchema,
-} from '../../lib/Models/Auth/InboundAuthModel';
+} from '../../lib/Models/Inbound/InboundAuthModel';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import useAxios from 'axios-hooks';
-import OutboundAuthSuccessModel from '../../lib/Models/Auth/OutboundAuthSuccessModel';
+import OutboundAuthSuccessModel from '../../lib/Models/Outbound/OutboundAuthSuccessModel';
 
 /** Login form */
 const LoginForm = () => {

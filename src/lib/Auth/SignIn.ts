@@ -1,6 +1,6 @@
 import { writeStorage } from '@rehooks/local-storage';
 import LocalStorageKeys from '../Constants/LocalStorageKeys';
-import OutboundAuthSuccessModel from '../Models/Auth/OutboundAuthSuccessModel';
+import OutboundAuthSuccessModel from '../Models/Outbound/OutboundAuthSuccessModel';
 
 /** Stores user details in local storage */
 export const SignIn = (user: OutboundAuthSuccessModel | undefined) => {

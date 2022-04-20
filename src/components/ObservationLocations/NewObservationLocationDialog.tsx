@@ -16,13 +16,13 @@ import {
 } from '@mui/material';
 import useAxios from 'axios-hooks';
 import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   InboundObsLocationModel,
   initialValues,
   validationSchema,
-} from '../../lib/Models/ObservationLocations/InboundObsLocationModel';
+} from '../../lib/Models/Inbound/InboundObsLocationModel';
 import ForwardGeocodeDialog from './ForwardGeocodeDialog';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
@@ -30,11 +30,13 @@ import { toast } from 'react-toastify';
 import { config } from '../../lib/Toast/Config';
 
 interface INewDialogProps {
+  /** Is the dialog open? */
   open: boolean;
+  /** The handle close callback */
   handleClose: () => void;
 }
 
-const NewDialog = ({ ...props }: INewDialogProps) => {
+const NewObservationLocationDialog = ({ ...props }: INewDialogProps) => {
   const [submitLocked, setSubmitLocked] = React.useState(false);
   const { updateObservationLocations } = useAstroCueObjectContext();
 
@@ -60,6 +62,7 @@ const NewDialog = ({ ...props }: INewDialogProps) => {
         setSubmitLocked(false);
       }, 1000);
     },
+    validateOnMount: true,
   });
 
   const handleSubmitAsync = async (model: InboundObsLocationModel) => {
@@ -182,4 +185,4 @@ const NewDialog = ({ ...props }: INewDialogProps) => {
   );
 };
 
-export default NewDialog;
+export default NewObservationLocationDialog;

@@ -5,8 +5,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab, Typography } from '@mui/material';
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import ObservationLocations from '../src/components/ObservationLocations/ObservationLocations';
+import Observations from '../src/components/Observations/Observations';
 import useLoginRedirect from '../src/lib/Hooks/useLoginRedirect';
 
 const Tabs = [
@@ -24,6 +26,7 @@ const Tabs = [
     longTitle: 'Astronomical Observations',
     description:
       'Manage your observations - observations are created when you combine an observation location with an astronomical object',
+    component: <Observations />,
   },
   {
     label: 'Reports',
@@ -45,8 +48,8 @@ const Home: NextPage = () => {
   useLoginRedirect();
   const [tabIndex, setTabIndex] = useState('1');
 
-  const handleChange = (_event: React.ChangeEvent<{}>, newValue: string) => {
-    setTabIndex(newValue);
+  const handleChange = (_event: React.ChangeEvent<{}>, value: string) => {
+    setTabIndex(value);
   };
 
   return (
@@ -82,12 +85,14 @@ const Home: NextPage = () => {
           <Typography
             display='block'
             color='textSecondary'
-            variant='caption'
+            variant='body1'
             align='center'
           >
             {tab.description}
           </Typography>
-          <Box sx={{ height: '100vh' }}>{tab.component}</Box>
+          <Box sx={{ marginLeft: '5vw', marginRight: '5vw' }}>
+            {tab.component}
+          </Box>
         </TabPanel>
       ))}
     </TabContext>

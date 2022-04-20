@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { OutboundObsLocationModel } from '../../lib/Models/ObservationLocations/OutboundObsLocationModel';
+import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
 import { LoadingButton } from '@mui/lab';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import useAxios from 'axios-hooks';
@@ -18,13 +18,17 @@ import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import React from 'react';
 
 interface IDeleteDialogProps {
+  /** Is the dialog open? */
   open: boolean;
+  /** The handle close callback */
   handleClose: () => void;
+  /** The location to delete */
   location: OutboundObsLocationModel | null;
 }
 
-const DeleteDialog = ({ ...props }: IDeleteDialogProps) => {
-  const { updateObservationLocations } = useAstroCueObjectContext();
+const DeleteObservationLocationDialog = ({ ...props }: IDeleteDialogProps) => {
+  const { updateObservationLocations, updateObservations } =
+    useAstroCueObjectContext();
   const [submitLocked, setSubmitLocked] = React.useState(false);
 
   const [{ loading }, deleteLocation] = useAxios<OutboundObsLocationModel>(
@@ -38,10 +42,11 @@ const DeleteDialog = ({ ...props }: IDeleteDialogProps) => {
     { manual: true },
   );
 
-  const handleDelete = async () => {
+  const handleDeleteAsync = async () => {
     try {
       await deleteLocation();
-      await updateObservationLocations?.();
+      updateObservationLocations?.();
+      updateObservations?.();
       props.handleClose();
       toast.success(`${props.location?.name} deleted!`, config);
     } catch (error: any) {
@@ -78,7 +83,7 @@ const DeleteDialog = ({ ...props }: IDeleteDialogProps) => {
           color='success'
           type='submit'
           startIcon={<DeleteForeverIcon />}
-          onClick={() => handleDelete()}
+          onClick={() => handleDeleteAsync()}
           loading={loading || submitLocked}
         >
           Delete
@@ -88,4 +93,4 @@ const DeleteDialog = ({ ...props }: IDeleteDialogProps) => {
   );
 };
 
-export default DeleteDialog;
+export default DeleteObservationLocationDialog;

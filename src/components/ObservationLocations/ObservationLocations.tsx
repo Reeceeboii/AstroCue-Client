@@ -4,17 +4,16 @@ import { useAstroCueContext } from '../../Context/AstroCueUserContext';
 import ObservationLocation from './ObservationLocation';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import React, { useRef } from 'react';
-import { OutboundObsLocationModel } from '../../lib/Models/ObservationLocations/OutboundObsLocationModel';
-import DeleteDialog from './DeleteDialog';
-import NewDialog from './NewDialog';
-import EditDialog from './EditDialog';
-import { InboundObsLocationModel } from '../../lib/Models/ObservationLocations/InboundObsLocationModel';
+import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
+import DeleteObservationLocationDialog from './DeleteObservationLocationDialog';
+import NewObservationLocationDialog from './NewObservationLocationDialog';
+import EditObservationLocationDialog from './EditObservationLocationDialog';
+import { InboundObsLocationModel } from '../../lib/Models/Inbound/InboundObsLocationModel';
 
 const ObservationLocations = () => {
   // contexts
   const { astroCueUser } = useAstroCueContext();
-  const { observationLocations, updateObservationLocations } =
-    useAstroCueObjectContext();
+  const { observationLocations } = useAstroCueObjectContext();
 
   // dialog states
   const [newDialogOpen, setNewDialogOpen] = React.useState(false);
@@ -48,61 +47,44 @@ const ObservationLocations = () => {
           Add Location
         </Button>
       </Box>
-      <Box
-        sx={{
-          marginLeft: '20',
-          marginRight: '20',
-        }}
-      >
+      <Box>
         <Grid
           container
           alignItems='stretch'
           justifyContent='center'
           spacing={2}
         >
-          {observationLocations !== undefined &&
-          observationLocations.length !== 0 ? (
-            observationLocations?.map((observationLocation) => (
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={8}
-                lg={3}
-                key={`${observationLocation.name}
+          {observationLocations?.map((observationLocation) => (
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={8}
+              lg={3}
+              key={`${observationLocation.id}
+                ${observationLocation.name}
                 ${observationLocation.latitude}
                 ${observationLocation.longitude}`}
-              >
-                <ObservationLocation
-                  key={observationLocation.id}
-                  location={observationLocation}
-                  onDelete={onDeleteLocation}
-                  onEdit={onEditLocation}
-                />
-              </Grid>
-            ))
-          ) : (
-            <Box paddingTop={5}>
-              <Typography variant='subtitle1' align='center'>
-                {`You don't have any observation locations yet, ${astroCueUser?.firstName}.`}
-              </Typography>
-              <Typography variant='subtitle1' align='center'>
-                Add your first one using the button above!
-              </Typography>
-            </Box>
-          )}
+            >
+              <ObservationLocation
+                location={observationLocation}
+                onDelete={onDeleteLocation}
+                onEdit={onEditLocation}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Box>
-      <DeleteDialog
+      <DeleteObservationLocationDialog
         open={deleteDialogOpen}
         handleClose={() => setDeleteDialogOpen(false)}
         location={targetedForDeletetion.current}
       />
-      <NewDialog
+      <NewObservationLocationDialog
         open={newDialogOpen}
         handleClose={() => setNewDialogOpen(false)}
       />
-      <EditDialog
+      <EditObservationLocationDialog
         open={editDialogOpen}
         handleClose={() => setEditDialogOpen(false)}
         location={targetedForEdit.current}
