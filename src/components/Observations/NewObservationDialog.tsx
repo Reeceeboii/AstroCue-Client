@@ -80,7 +80,7 @@ const NewObservationDialog = ({ ...props }: INewDialogProps) => {
 
   const formik = useFormik({
     initialValues: {
-      locationId: observationLocations?.[0]?.id ?? '',
+      locationId: observationLocations?.[0]?.id ?? 0,
       astronomicalObjectId: 0,
     },
     validationSchema: validationSchema,
@@ -169,7 +169,10 @@ const NewObservationDialog = ({ ...props }: INewDialogProps) => {
                       <Checkbox value={popular} />
                     </Tooltip>
                   }
-                  onChange={(e) => setPopular(e.target.checked)}
+                  onChange={(
+                    e: React.SyntheticEvent<Element, Event>,
+                    checked: boolean,
+                  ) => setPopular(checked)}
                   label='Popular'
                 />
               </FormGroup>
