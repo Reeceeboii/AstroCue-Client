@@ -5,10 +5,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab, Typography } from '@mui/material';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ObservationLocations from '../src/components/ObservationLocations/ObservationLocations';
 import Observations from '../src/components/Observations/Observations';
+import Reports from '../src/components/Reports/Reports';
 import useLoginRedirect from '../src/lib/Hooks/useLoginRedirect';
 
 const Tabs = [
@@ -33,7 +33,8 @@ const Tabs = [
     icon: <AssessmentIcon />,
     longTitle: 'Observation Reports',
     description:
-      'View your observation reports. Generated automatically every ~3 days, or manually on demand',
+      'View your observation reports. Generated automatically every ~3 days, or manually on demand. All dates are given in UTC.',
+    component: <Reports />,
   },
   {
     label: 'Logs',

@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-/** Model type reresenting an outgoing set of authentication credentials */
+/** Model type representing an outgoing set of authentication credentials */
 export type InboundAuthModel = {
   /** The user's email address */
   emailAddress: string;

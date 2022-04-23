@@ -11,8 +11,6 @@ import EditObservationLocationDialog from './EditObservationLocationDialog';
 import { InboundObsLocationModel } from '../../lib/Models/Inbound/InboundObsLocationModel';
 
 const ObservationLocations = () => {
-  // contexts
-  const { astroCueUser } = useAstroCueContext();
   const { observationLocations } = useAstroCueObjectContext();
 
   // dialog states

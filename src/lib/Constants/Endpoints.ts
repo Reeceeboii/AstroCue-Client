@@ -38,6 +38,7 @@ enum ObservationLocation {
   StaticMap = '/observationLocation/static-map', // :id
 }
 
+/** Observation report endpoints */
 enum Report {
   /** Retrieve all reports */
   All = '/report/all',
@@ -45,6 +46,18 @@ enum Report {
   Force = '/report/force-generate',
   /** Delete a report */
   Delete = '/report/delete',
+}
+
+/** Observation log endpoints */
+enum ObservationLog {
+  /** Create a new observation log */
+  New = '/observationLog/new',
+  /** Retrieve all observation logs */
+  All = '/observationLog/all',
+  /** Delete an observation log */
+  Delete = '/observationLog/delete',
+  /** Edit an existing observation log */
+  Edit = '/observationLog/edit',
 }
 
 /** Object exposing all endpoints */
@@ -59,6 +72,8 @@ const APIEndpoints = {
   ObservationLocation,
   /** Report controller endpoints */
   Report,
+  /** Observation log controller endpoints */
+  ObservationLog,
 };
 
 export default APIEndpoints;

@@ -2,7 +2,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
-import { useAstroCueContext } from '../../Context/AstroCueUserContext';
 import { OutboundObservationModel } from '../../lib/Models/Outbound/OutboundObservationModel';
 import DeleteObservationDialog from './DeleteObservationDialog';
 import NewObservationDialog from './NewObservationDialog';
