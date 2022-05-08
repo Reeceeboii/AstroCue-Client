@@ -1,34 +1,30 @@
-import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import AddchartIcon from '@mui/icons-material/Addchart';
-import Report from './Report';
-import { OutboundReportModel } from '../../lib/Models/Outbound/OutboundReportModel';
-import GenerateReportsDialog from './GenerateReportsDialog';
+import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
-import useAxios from 'axios-hooks';
-import APIEndpoints from '../../lib/Constants/Endpoints';
-import { toast } from 'react-toastify';
+import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import { OutboundReportModel } from '../../lib/Models/Outbound/OutboundReportModel';
+import NewObservationLogDialog from '../ObservationLogs/NewObservationLogDialog';
 import DeleteReportDialog from './DeleteReportDialog';
+import GenerateReportsDialog from './GenerateReportsDialog';
+import Report from './Report';
 
 const Reports = () => {
   const { locReports } = useAstroCueObjectContext();
 
-  const targetedForDeletion = useRef<OutboundReportModel | null>(null);
+  const targeted = useRef<OutboundReportModel | null>(null);
 
   const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
-  const [{}, deleteReport] = useAxios(
-    {
-      url: APIEndpoints.Report.Delete,
-      method: 'DELETE',
-    },
-    { manual: true },
-  );
+  const [newLogDialogOpen, setNewLogDialogOpen] = useState(false);
 
   const handleDelete = (model: OutboundReportModel) => {
-    targetedForDeletion.current = model;
+    targeted.current = model;
     setDeleteDialogOpen(true);
+  };
+
+  const handleNewObservationLog = (model: OutboundReportModel) => {
+    targeted.current = model;
+    setNewLogDialogOpen(true);
   };
 
   return (
@@ -80,6 +76,9 @@ const Reports = () => {
                               onDelete={(model: OutboundReportModel) =>
                                 handleDelete(model)
                               }
+                              onTakeObservationLog={(
+                                model: OutboundReportModel,
+                              ) => handleNewObservationLog(model)}
                             />
                           </Grid>
                         ))}
@@ -94,9 +93,14 @@ const Reports = () => {
           handleClose={() => setGenerateDialogOpen(false)}
         />
         <DeleteReportDialog
-          report={targetedForDeletion.current}
+          report={targeted.current}
           open={deleteDialogOpen}
           handleClose={() => setDeleteDialogOpen(false)}
+        />
+        <NewObservationLogDialog
+          targetReport={targeted.current}
+          open={newLogDialogOpen}
+          handleClose={() => setNewLogDialogOpen(false)}
         />
       </Box>
     </div>

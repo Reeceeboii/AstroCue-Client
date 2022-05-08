@@ -1,9 +1,10 @@
+import { observationTypeOptions } from './InboundObservationLogModel';
 import * as yup from 'yup';
 
-/** Model type representing an outgoing observation log taken against a report */
-export type InboundObservationLogModel = {
-  /** The ID of the report that the log is being taken against */
-  reportId: number;
+/** Model type representing an edit to an observation log */
+export type InboundObservationLogEditModel = {
+  /** The ID of the log that is being edited */
+  id: number;
   /** A textual description of what was observed */
   textualDescription: string;
   /** The observer(s) that carried out the observation being logged */
@@ -12,19 +13,10 @@ export type InboundObservationLogModel = {
   observationType: string;
 };
 
-/** The available observation type options */
-export const observationTypeOptions = [
-  'NakedEye',
-  'LongExposure',
-  'Telescope',
-  'Binoculars',
-  'Other',
-];
-
 /** A set of initial values */
 export const initialValues = {
-  /** The report ID default */
-  reportId: 0,
+  /** The log ID default */
+  id: 0,
   /** The textual description default */
   textualDescription: '',
   /** The observer(s) default */
@@ -36,7 +28,7 @@ export const initialValues = {
 /** Yup validation schema */
 export const validationSchema = yup.object().shape({
   /** reportId validation */
-  reportId: yup.number().required('Report ID is required'),
+  id: yup.number().required('ID is required'),
   /** textualDescription validation */
   textualDescription: yup
     .string()

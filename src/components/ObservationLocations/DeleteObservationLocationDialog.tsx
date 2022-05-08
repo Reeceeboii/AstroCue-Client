@@ -15,7 +15,7 @@ import useAxios from 'axios-hooks';
 import { toast } from 'react-toastify';
 import { config } from '../../lib/Toast/Config';
 import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface IDeleteDialogProps {
   /** Is the dialog open? */
@@ -29,7 +29,7 @@ interface IDeleteDialogProps {
 const DeleteObservationLocationDialog = ({ ...props }: IDeleteDialogProps) => {
   const { updateObservationLocations, updateObservations } =
     useAstroCueObjectContext();
-  const [submitLocked, setSubmitLocked] = React.useState(false);
+  const [submitLocked, setSubmitLocked] = useState(false);
 
   const [{ loading }, deleteLocation] = useAxios<OutboundObsLocationModel>(
     {

@@ -10,7 +10,7 @@ export type OutboundObservationLogModel = {
   /** The observer(s) that carried out the observation being logged */
   observer: string;
   /** The type of observation that was carried out */
-  observationType: string;
+  typeOfObservation: string;
   /** The weather forecast attached to the log */
   weatherForecast: WeatherForecast;
   /** The name of the observation location where the observation took place */

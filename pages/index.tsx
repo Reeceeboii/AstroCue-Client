@@ -7,6 +7,7 @@ import { Box, Tab, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import ObservationLocations from '../src/components/ObservationLocations/ObservationLocations';
+import ObservationLogs from '../src/components/ObservationLogs/ObservationLogs';
 import Observations from '../src/components/Observations/Observations';
 import Reports from '../src/components/Reports/Reports';
 import useLoginRedirect from '../src/lib/Hooks/useLoginRedirect';
@@ -40,7 +41,9 @@ const Tabs = [
     label: 'Logs',
     icon: <BookIcon />,
     longTitle: 'Astronomical Logs',
-    description: 'Create and view astronomical logs. Record what you saw!',
+    description:
+      'Astronomical logs are your own personal place to record what you saw. Logs are displayed in the order they were last edited.',
+    component: <ObservationLogs />,
   },
 ];
 
