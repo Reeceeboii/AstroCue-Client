@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import { OutboundObservationModel } from '../../lib/Models/Outbound/OutboundObservationModel';
+import { OutboundReportModel } from '../../lib/Models/Outbound/OutboundReportModel';
 import { config } from '../../lib/Toast/Config';
 
 interface IDeleteDialogProps {
@@ -23,19 +24,19 @@ interface IDeleteDialogProps {
   /** The handle close callback */
   handleClose: () => void;
   /** The observation to delete */
-  observation: OutboundObservationModel | null;
+  report: OutboundReportModel | null;
 }
 
-const DeleteObservationDialog = ({ ...props }: IDeleteDialogProps) => {
-  const { updateObservations } = useAstroCueObjectContext();
+const DeleteReportDialog = ({ ...props }: IDeleteDialogProps) => {
+  const { updateReports } = useAstroCueObjectContext();
   const [submitLocked, setSubmitLocked] = useState(false);
 
-  const [{ loading }, deleteObservation] = useAxios<OutboundObservationModel>(
+  const [{ loading }, deleteReport] = useAxios<OutboundReportModel>(
     {
-      url: APIEndpoints.Observation.Delete,
+      url: APIEndpoints.Report.Delete,
       method: 'DELETE',
       params: {
-        id: props.observation?.id,
+        id: props.report?.id,
       },
     },
     { manual: true },
@@ -43,10 +44,10 @@ const DeleteObservationDialog = ({ ...props }: IDeleteDialogProps) => {
 
   const handleDeleteAsync = async () => {
     try {
-      await deleteObservation();
-      updateObservations?.();
+      await deleteReport();
+      updateReports?.();
       props.handleClose();
-      toast.success('Observation deleted!', config);
+      toast.success('Report deleted!', config);
     } catch (error: any) {
       setSubmitLocked(true);
       toast.error(error.response.data.message, config);
@@ -59,14 +60,11 @@ const DeleteObservationDialog = ({ ...props }: IDeleteDialogProps) => {
   return (
     <Dialog open={props.open} keepMounted onClose={props.handleClose}>
       <DialogTitle>
-        {`Delete observation between 
-        ${props.observation?.astronomicalObject.name} and 
-        ${props.observation?.observationLocation.name}?`}
+        {`Delete report on the observation of ${props.report?.astronomicalObjectName}?`}
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Any reports created based on this observation will remain on your
-          account.
+          Any logs taken against this report will remain on your account.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -93,4 +91,4 @@ const DeleteObservationDialog = ({ ...props }: IDeleteDialogProps) => {
   );
 };
 
-export default DeleteObservationDialog;
+export default DeleteReportDialog;

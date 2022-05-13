@@ -11,7 +11,7 @@ const Layout = ({ children }: any) => {
       <Nav />
       {children}
       <ToastContainer
-        position='bottom-right'
+        position='top-right'
         autoClose={3500}
         hideProgressBar={false}
         newestOnTop={false}
@@ -19,7 +19,11 @@ const Layout = ({ children }: any) => {
         rtl={false}
         draggable
         pauseOnHover
-        theme='dark'
+        toastStyle={{
+          top: '60px',
+          backgroundColor: '#272727',
+          color: '#fff',
+        }}
       />
     </Paper>
   );

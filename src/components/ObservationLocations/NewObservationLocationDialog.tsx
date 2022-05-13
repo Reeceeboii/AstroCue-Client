@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import useAxios from 'axios-hooks';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   InboundObsLocationModel,
@@ -37,7 +37,7 @@ interface INewDialogProps {
 }
 
 const NewObservationLocationDialog = ({ ...props }: INewDialogProps) => {
-  const [submitLocked, setSubmitLocked] = React.useState(false);
+  const [submitLocked, setSubmitLocked] = useState(false);
   const { updateObservationLocations } = useAstroCueObjectContext();
 
   const [{ loading }, newLocationPost] = useAxios<InboundObsLocationModel>(
@@ -67,7 +67,7 @@ const NewObservationLocationDialog = ({ ...props }: INewDialogProps) => {
 
   const handleSubmitAsync = async (model: InboundObsLocationModel) => {
     try {
-      const { data } = await newLocationPost({
+      await newLocationPost({
         data: model,
       });
       updateObservationLocations?.();

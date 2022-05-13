@@ -2,8 +2,10 @@ import useAxios from 'axios-hooks';
 import { createContext, useContext, useEffect } from 'react';
 import APIEndpoints from '../lib/Constants/Endpoints';
 import useIsLoggedIn from '../lib/Hooks/useIsLoggedIn';
+import { OutboundObservationLogModel } from '../lib/Models/Outbound/OutboundObservationLogModel';
 import { OutboundObservationModel } from '../lib/Models/Outbound/OutboundObservationModel';
 import { OutboundObsLocationModel } from '../lib/Models/Outbound/OutboundObsLocationModel';
+import { OutboundObsLocReportModel } from '../lib/Models/Outbound/OutboundObsLocReportModel';
 
 /** Interface representing the values stored in the data context */
 interface AstroCueObjectContextValues {
@@ -15,6 +17,14 @@ interface AstroCueObjectContextValues {
   observations?: OutboundObservationModel[];
   /** Updates observations from the server */
   updateObservations?: () => void;
+  /** Reports */
+  locReports?: OutboundObsLocReportModel[];
+  /** Updates reports from the server */
+  updateReports?: () => void;
+  /** Observation logs */
+  observationLogs?: OutboundObservationLogModel[];
+  /** Updates observation logs from the server */
+  updateObservationLogs?: () => void;
 }
 
 const AstroCueObjectContext = createContext<AstroCueObjectContextValues>({
@@ -22,6 +32,10 @@ const AstroCueObjectContext = createContext<AstroCueObjectContextValues>({
   updateObservationLocations: () => {},
   observations: undefined,
   updateObservations: () => {},
+  locReports: undefined,
+  updateReports: () => {},
+  observationLogs: undefined,
+  updateObservationLogs: () => {},
 });
 
 export const useAstroCueObjectContext = () => useContext(AstroCueObjectContext);
@@ -42,12 +56,32 @@ export const AstroCueObjectContextProvider: React.FC = ({ children }) => {
     manual: true,
   });
 
+  const [{ data: reports }, updateReports] = useAxios<
+    OutboundObsLocReportModel[]
+  >(APIEndpoints.Report.All, {
+    manual: true,
+  });
+
+  const [{ data: logs }, updateObservationLogs] = useAxios<
+    OutboundObservationLogModel[]
+  >(APIEndpoints.ObservationLog.All, {
+    manual: true,
+  });
+
   useEffect(() => {
     if (isLoggedIn) {
       updateObservationLocations();
       updateObservations();
+      updateReports();
+      updateObservationLogs();
     }
-  }, [isLoggedIn, updateObservationLocations, updateObservations]);
+  }, [
+    isLoggedIn,
+    updateObservationLocations,
+    updateObservations,
+    updateReports,
+    updateObservationLogs,
+  ]);
 
   return (
     <AstroCueObjectProvider
@@ -56,6 +90,10 @@ export const AstroCueObjectContextProvider: React.FC = ({ children }) => {
         updateObservationLocations,
         observations,
         updateObservations,
+        locReports: reports,
+        updateReports,
+        observationLogs: logs,
+        updateObservationLogs,
       }}
     >
       {children}
