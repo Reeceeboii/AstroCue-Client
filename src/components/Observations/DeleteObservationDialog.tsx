@@ -10,9 +10,9 @@ import {
   DialogTitle,
 } from '@mui/material';
 import useAxios from 'axios-hooks';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import { OutboundObservationModel } from '../../lib/Models/Outbound/OutboundObservationModel';
 import { config } from '../../lib/Toast/Config';
@@ -27,7 +27,7 @@ interface IDeleteDialogProps {
 }
 
 const DeleteObservationDialog = ({ ...props }: IDeleteDialogProps) => {
-  const { updateObservations } = useAstroCueObjectContext();
+  const { updateObservations } = useContext(AstroCueObjectContext);
   const [submitLocked, setSubmitLocked] = useState(false);
 
   const [{ loading }, deleteObservation] = useAxios<OutboundObservationModel>(

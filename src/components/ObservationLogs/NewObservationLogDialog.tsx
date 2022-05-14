@@ -14,8 +14,7 @@ import {
 } from '@mui/material';
 import useAxios from 'axios-hooks';
 import { useFormik } from 'formik';
-import { useState } from 'react';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import { useContext, useState } from 'react';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   InboundObservationLogModel,
@@ -28,6 +27,7 @@ import { LoadingButton } from '@mui/lab';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { toast } from 'react-toastify';
 import { config } from '../../lib/Toast/Config';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 
 interface INewDialogProps {
   /** Is the dialog open? */
@@ -40,7 +40,7 @@ interface INewDialogProps {
 
 const NewObservationLogDialog = ({ ...props }: INewDialogProps) => {
   const [submitLocked, setSubmitLocked] = useState(false);
-  const { updateObservationLogs } = useAstroCueObjectContext();
+  const { updateObservationLogs } = useContext(AstroCueObjectContext);
 
   const [{ loading }, newObservationLogPost] =
     useAxios<InboundObservationLogModel>(
