@@ -40,7 +40,6 @@ const EditObservationLocationDialog = ({ ...props }: IEditDialogProps) => {
   const [submitLocked, setSubmitLocked] = React.useState(false);
   const { updateObservationLocations, updateObservations, updateReports } =
     useContext(AstroCueObjectContext);
-
   const [{ loading }, editLocationPost] = useAxios<InboundObsLocationModel>(
     {
       url: APIEndpoints.ObservationLocation.Edit,
