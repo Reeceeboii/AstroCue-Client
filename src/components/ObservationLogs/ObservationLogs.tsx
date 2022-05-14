@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
-import { useRef, useState } from 'react';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import { useRef, useState, useContext } from 'react';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import { OutboundObservationLogModel } from '../../lib/Models/Outbound/OutboundObservationLogModel';
 import DeleteObservationLogDialog from './DeleteObservationLogDialog';
 import EditObservationLogDialog from './EditObservationLogDialog';
@@ -8,7 +8,7 @@ import ExpandedObservationLogDialog from './ExpandedObservationLogDialog';
 import ObservationLog from './ObservationLog';
 
 const ObservationLogs = () => {
-  const { observationLogs } = useAstroCueObjectContext();
+  const { observationLogs } = useContext(AstroCueObjectContext);
 
   const [expandedDialogOpen, setExpandedDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);

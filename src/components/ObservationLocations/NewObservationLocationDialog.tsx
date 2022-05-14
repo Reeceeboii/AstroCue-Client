@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import useAxios from 'axios-hooks';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   InboundObsLocationModel,
@@ -25,9 +25,9 @@ import {
 } from '../../lib/Models/Inbound/InboundObsLocationModel';
 import ForwardGeocodeDialog from './ForwardGeocodeDialog';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import { toast } from 'react-toastify';
 import { config } from '../../lib/Toast/Config';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 
 interface INewDialogProps {
   /** Is the dialog open? */
@@ -38,7 +38,7 @@ interface INewDialogProps {
 
 const NewObservationLocationDialog = ({ ...props }: INewDialogProps) => {
   const [submitLocked, setSubmitLocked] = useState(false);
-  const { updateObservationLocations } = useAstroCueObjectContext();
+  const { updateObservationLocations } = useContext(AstroCueObjectContext);
 
   const [{ loading }, newLocationPost] = useAxios<InboundObsLocationModel>(
     {

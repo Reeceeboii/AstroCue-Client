@@ -1,7 +1,6 @@
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -9,12 +8,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { useAstroCueContext } from '../../Context/AstroCueUserContext';
+import { AstroCueUserContext } from '../../Context/AstroCueUserContext';
 import { SignOut } from '../../lib/Auth/SignOut';
 
 /** Nav bar */
 const Nav = () => {
-  const { astroCueUser } = useAstroCueContext();
+  const { astroCueUser } = React.useContext(AstroCueUserContext);
 
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

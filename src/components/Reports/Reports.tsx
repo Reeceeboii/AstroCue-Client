@@ -1,7 +1,7 @@
 import AddchartIcon from '@mui/icons-material/Addchart';
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
-import { useRef, useState } from 'react';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import { useContext, useRef, useState } from 'react';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import { OutboundReportModel } from '../../lib/Models/Outbound/OutboundReportModel';
 import NewObservationLogDialog from '../ObservationLogs/NewObservationLogDialog';
 import DeleteReportDialog from './DeleteReportDialog';
@@ -9,7 +9,7 @@ import GenerateReportsDialog from './GenerateReportsDialog';
 import Report from './Report';
 
 const Reports = () => {
-  const { locReports } = useAstroCueObjectContext();
+  const { locReports } = useContext(AstroCueObjectContext);
 
   const targeted = useRef<OutboundReportModel | null>(null);
 

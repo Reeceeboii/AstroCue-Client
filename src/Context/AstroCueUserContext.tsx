@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import LocalStorageKeys from '../lib/Constants/LocalStorageKeys';
 import { AstroCueUser } from '../lib/Models/Misc/AstroCueUser';
 
-/** Interface representing the AstroCue user context*/
+/** Interface representing the AstroCue user context */
 interface AstroCueUserContextValues {
   /** User */
   astroCueUser?: AstroCueUser;
@@ -15,28 +15,27 @@ interface AstroCueUserContextValues {
   setToken: (token?: string) => void;
 }
 
-/** AstroCueUserContext */
-const AstroCueUserContext = createContext<AstroCueUserContextValues>({
+const vals: AstroCueUserContextValues = {
   astroCueUser: undefined,
   setAstroCueUser: () => {},
   token: undefined,
   setToken: () => {},
-});
+};
 
-export const useAstroCueContext = () => useContext(AstroCueUserContext);
-const AstroCueUserProvider = AstroCueUserContext.Provider;
+export const AstroCueUserContext = createContext(vals);
 
-export const AstroCueUserContextProvider: React.FC = ({ children }) => {
+export const AstroCueUserContextProvider: React.FC = (props) => {
   const [astroCueUser, setAstroCueUser] = useLocalStorage<
     AstroCueUser | undefined
   >(LocalStorageKeys.User, undefined);
+
   const [token, setToken] = useLocalStorage<string | undefined>(
     LocalStorageKeys.Token,
     undefined,
   );
 
   return (
-    <AstroCueUserProvider
+    <AstroCueUserContext.Provider
       value={{
         astroCueUser,
         setAstroCueUser,
@@ -44,7 +43,7 @@ export const AstroCueUserContextProvider: React.FC = ({ children }) => {
         setToken,
       }}
     >
-      {children}
-    </AstroCueUserProvider>
+      {props.children}
+    </AstroCueUserContext.Provider>
   );
 };

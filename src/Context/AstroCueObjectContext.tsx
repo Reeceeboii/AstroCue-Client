@@ -27,7 +27,7 @@ interface AstroCueObjectContextValues {
   updateObservationLogs?: () => void;
 }
 
-const AstroCueObjectContext = createContext<AstroCueObjectContextValues>({
+const vals: AstroCueObjectContextValues = {
   observationLocations: undefined,
   updateObservationLocations: () => {},
   observations: undefined,
@@ -36,13 +36,12 @@ const AstroCueObjectContext = createContext<AstroCueObjectContextValues>({
   updateReports: () => {},
   observationLogs: undefined,
   updateObservationLogs: () => {},
-});
+};
 
-export const useAstroCueObjectContext = () => useContext(AstroCueObjectContext);
-const AstroCueObjectProvider = AstroCueObjectContext.Provider;
+export const AstroCueObjectContext = createContext(vals);
 
-export const AstroCueObjectContextProvider: React.FC = ({ children }) => {
-  const isLoggedIn = useIsLoggedIn();
+export const AstroCueObjectContextProvider: React.FC = (props) => {
+  const loggedIn = useIsLoggedIn();
 
   const [{ data: observationLocations }, updateObservationLocations] = useAxios<
     OutboundObsLocationModel[]
@@ -69,14 +68,19 @@ export const AstroCueObjectContextProvider: React.FC = ({ children }) => {
   });
 
   useEffect(() => {
-    if (isLoggedIn) {
-      updateObservationLocations();
-      updateObservations();
-      updateReports();
-      updateObservationLogs();
+    const getData = async () => {
+      if (loggedIn) {
+        await updateObservationLocations();
+        await updateObservations();
+        await updateReports();
+        await updateObservationLogs();
+      }
+    };
+    if (loggedIn) {
+      getData();
     }
   }, [
-    isLoggedIn,
+    loggedIn,
     updateObservationLocations,
     updateObservations,
     updateReports,
@@ -84,7 +88,7 @@ export const AstroCueObjectContextProvider: React.FC = ({ children }) => {
   ]);
 
   return (
-    <AstroCueObjectProvider
+    <AstroCueObjectContext.Provider
       value={{
         observationLocations,
         updateObservationLocations,
@@ -96,7 +100,7 @@ export const AstroCueObjectContextProvider: React.FC = ({ children }) => {
         updateObservationLogs,
       }}
     >
-      {children}
-    </AstroCueObjectProvider>
+      {props.children}
+    </AstroCueObjectContext.Provider>
   );
 };

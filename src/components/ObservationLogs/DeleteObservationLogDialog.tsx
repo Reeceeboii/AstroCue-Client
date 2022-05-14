@@ -1,14 +1,21 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@mui/material';
 import useAxios from 'axios-hooks';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import { OutboundObservationLogModel } from '../../lib/Models/Outbound/OutboundObservationLogModel';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import { toast } from 'react-toastify';
 import { config } from '../../lib/Toast/Config';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 
 interface IDeleteObservationLogDialogProps {
   /** Is the dialog open */
@@ -22,32 +29,33 @@ interface IDeleteObservationLogDialogProps {
 const DeleteObservationLogDialog = ({
   ...props
 }: IDeleteObservationLogDialogProps) => {
-  const { updateObservationLogs } = useAstroCueObjectContext();
+  const { updateObservationLogs } = useContext(AstroCueObjectContext);
   const [submitLocked, setSubmitLocked] = useState(false);
 
-  const [{ loading }, deleteObservationLog] = useAxios<OutboundObservationLogModel>(
-    {
-      url: APIEndpoints.ObservationLog.Delete,
-      method: 'DELETE',
-      params: {
-        id: props.observationLog?.id ?? 0,
-      }
-    },
-    {
-      manual: true,
-    },
-  );
+  const [{ loading }, deleteObservationLog] =
+    useAxios<OutboundObservationLogModel>(
+      {
+        url: APIEndpoints.ObservationLog.Delete,
+        method: 'DELETE',
+        params: {
+          id: props.observationLog?.id ?? 0,
+        },
+      },
+      {
+        manual: true,
+      },
+    );
 
-  const handleDeleteAsync = async () => { 
+  const handleDeleteAsync = async () => {
     try {
       await deleteObservationLog();
       updateObservationLogs?.();
       props.handleClose();
       toast.success('Log deleted!', config);
-    } catch (error: any) { 
+    } catch (error: any) {
       toast.error(error.response.data.message, config);
     }
-  }
+  };
 
   return (
     <Dialog open={props.open} onClose={props.handleClose}>

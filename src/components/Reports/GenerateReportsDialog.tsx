@@ -9,12 +9,13 @@ import {
 import { LoadingButton } from '@mui/lab';
 import CancelIcon from '@mui/icons-material/Cancel';
 import useAxios from 'axios-hooks';
-import { useAstroCueContext } from '../../Context/AstroCueUserContext';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import AddchartIcon from '@mui/icons-material/Addchart';
 import { config } from '../../lib/Toast/Config';
 import { toast } from 'react-toastify';
+import { useContext } from 'react';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import { AstroCueUserContext } from '../../Context/AstroCueUserContext';
 
 interface IGenerateReportsDialogProps {
   /** Is the dialog open? */
@@ -24,8 +25,8 @@ interface IGenerateReportsDialogProps {
 }
 
 const GenerateReportsDialog = ({ ...props }: IGenerateReportsDialogProps) => {
-  const { astroCueUser } = useAstroCueContext();
-  const { updateReports } = useAstroCueObjectContext();
+  const { astroCueUser } = useContext(AstroCueUserContext);
+  const { updateReports } = useContext(AstroCueObjectContext);
 
   const [{ loading }, generateReports] = useAxios<any>(
     {

@@ -1,7 +1,7 @@
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { Box, Button, Grid } from '@mui/material';
-import React, { useRef } from 'react';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import React, { useContext, useRef } from 'react';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import { InboundObsLocationModel } from '../../lib/Models/Inbound/InboundObsLocationModel';
 import { OutboundObsLocationModel } from '../../lib/Models/Outbound/OutboundObsLocationModel';
 import DeleteObservationLocationDialog from './DeleteObservationLocationDialog';
@@ -10,7 +10,7 @@ import NewObservationLocationDialog from './NewObservationLocationDialog';
 import ObservationLocation from './ObservationLocation';
 
 const ObservationLocations = () => {
-  const { observationLocations } = useAstroCueObjectContext();
+  const { observationLocations } = useContext(AstroCueObjectContext);
 
   // dialog states
   const [newDialogOpen, setNewDialogOpen] = React.useState(false);

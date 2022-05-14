@@ -26,9 +26,9 @@ import {
 } from '@mui/material';
 import useAxios from 'axios-hooks';
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 import APIEndpoints from '../../lib/Constants/Endpoints';
 import {
   InboundObservationModel,
@@ -47,8 +47,9 @@ interface INewDialogProps {
 
 const NewObservationDialog = ({ ...props }: INewDialogProps) => {
   const [submitLocked, setSubmitLocked] = useState(false);
-  const { observationLocations, updateObservations } =
-    useAstroCueObjectContext();
+  const { observationLocations, updateObservations } = useContext(
+    AstroCueObjectContext,
+  );
 
   // query filters
   const [popular, setPopular] = useState(false);

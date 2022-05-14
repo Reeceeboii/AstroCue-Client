@@ -24,10 +24,10 @@ import {
 import { OutboundObservationLogModel } from '../../lib/Models/Outbound/OutboundObservationLogModel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { config } from '../../lib/Toast/Config';
-import { useAstroCueObjectContext } from '../../Context/AstroCueObjectContext';
+import { AstroCueObjectContext } from '../../Context/AstroCueObjectContext';
 
 interface IEditObservationLogDialogProps {
   /** Is the dialog open */
@@ -41,7 +41,7 @@ interface IEditObservationLogDialogProps {
 const EditObservationLogDialog = ({
   ...props
 }: IEditObservationLogDialogProps) => {
-  const { updateObservationLogs } = useAstroCueObjectContext();
+  const { updateObservationLogs } = useContext(AstroCueObjectContext);
   const [submitLocked, setSubmitLocked] = useState(false);
 
   const [{ loading }, editObservationLogPost] =
