@@ -1,34 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a name="top"></a>
 
-## Getting Started
+![AstroCue logo](./res/AstroCue-Logo.png)
 
-First, run the development server:
+## _Planning and logging astronomical observations via computational astronomy, open data, and public APIs._
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 🎓 This repo forms a part of my university dissertation that received a final mark of 91%.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Please note that this repository comprises the client of the full distributed client-server architecture that was implemented to make AstroCue function. As with most similar setups, the client is mostly passive, acting as a intermediary between the user and the server (backend).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### This is a React and Next.js web app, written in TypeScript. It is hosted on Vercel. It uses [React Context](https://reactjs.org/docs/context.html) for state management, and [MUI](https://mui.com/) for UI components. [Axios](https://axios-http.com/docs/intro) is used for HTTP requests.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### The large majority of the logic and interesting implementation details are held and documented in the separate [AstroCue-Server](https://github.com/Reeceeboii/AstroCue-Server) repository. There you will  also find links to the main dissertation document, as well as a demo video that can be used to see how AstroCue functioned along with its main features and UI elements.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Please note that since receiving grades for this project, AstroCue is no longer active. The webpage ([astrocue.co.uk](https://astrocue.co.uk)) can still be seen, but new registrations and logins are no longer accepted.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### [Visit server repository for far more details and explanations](https://github.com/Reeceeboii/AstroCue-Server).
