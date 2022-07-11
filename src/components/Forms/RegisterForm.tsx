@@ -23,6 +23,15 @@ const RegisterForm = () => {
     validationSchema: validationSchema,
     onSubmit: (model: InboundRegModel) => {
       setSubmitLocked(true);
+
+      // block new registrations
+      toast.error('Please read the warning below the register button.', config);
+      setTimeout(() => {
+        setSubmitLocked(false);
+      }, 1000);
+      return;
+      //
+
       handleSubmitAsync(model);
 
       /** This short timeout on the button lock prevents form spamming */
