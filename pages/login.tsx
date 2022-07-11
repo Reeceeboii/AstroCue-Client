@@ -1,6 +1,7 @@
 import { Container, Grid, Stack, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { Link as MuiLink } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -35,6 +36,15 @@ const Login: NextPage = () => {
             Login
           </Typography>
           <LoginForm />
+          <Typography variant='caption' align='center' color='error.main'>
+            As it was a university project, AstroCue is no longer active or
+            maintained. All previously existing accounts have since been
+            deleted.
+          </Typography>
+          <Typography variant='caption' align='center' color='error.main'>
+            Please see <MuiLink href='#'>this GitHub repo</MuiLink> page for
+            more information. Thank you.
+          </Typography>
           <Typography variant='body1' align='center'>
             No account?
             <Link href='/register' passHref>

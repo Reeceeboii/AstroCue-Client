@@ -1,6 +1,7 @@
 import { Container, Grid, Stack, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { Link as MuiLink } from '@mui/material';
 import RegisterForm from '../src/components/Forms/RegisterForm';
 import useRedirectLoggedInUsers from '../src/lib/Hooks/useRedirectLoggedInUsers';
 
@@ -21,10 +22,13 @@ const Register: NextPage = () => {
             Register
           </Typography>
           <RegisterForm />
-          <Typography variant='caption' align='center' color='warning.main'>
-            Please note that in its current state, AstroCue does NOT validate
-            your email address. Please ensure it is entered correctly before
-            registering, else you will not be able to receive report emails.
+          <Typography variant='caption' align='center' color='error.main'>
+            As it was a university project, AstroCue is no longer active or
+            maintained. As such, no new account registrations will be accepted.
+          </Typography>
+          <Typography variant='caption' align='center' color='error.main'>
+            Please see <MuiLink href='#'>this GitHub repo</MuiLink> page for
+            more information. Thank you.
           </Typography>
           <Typography variant='body1' align='center'>
             Already registered?

@@ -48,6 +48,11 @@ const LoginForm = () => {
    */
   const handleSubmitAsync = async (model: InboundAuthModel) => {
     try {
+      // block login attempts
+      toast.error('Please read the warning below the login button.', config);
+      return;
+      //
+
       const { data } = await loginPost({
         data: model,
       });
