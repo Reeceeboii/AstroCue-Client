@@ -24,11 +24,18 @@ const Register: NextPage = () => {
           <RegisterForm />
           <Typography variant='caption' align='center' color='error.main'>
             As it was a university project, AstroCue is no longer active or
-            maintained. As such, no new account registrations will be accepted.
+            maintained. No new registrations will be accepted.
           </Typography>
           <Typography variant='caption' align='center' color='error.main'>
-            Please see <MuiLink href='#'>this GitHub repo</MuiLink> page for
-            more information. Thank you.
+            Please see{' '}
+            <MuiLink
+              href='https://github.com/Reeceeboii/AstroCue-Server'
+              target='blank'
+              rel='noreferrer'
+            >
+              this GitHub repo
+            </MuiLink>{' '}
+            for more information. Thank you.
           </Typography>
           <Typography variant='body1' align='center'>
             Already registered?

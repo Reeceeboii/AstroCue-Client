@@ -42,8 +42,15 @@ const Login: NextPage = () => {
             deleted.
           </Typography>
           <Typography variant='caption' align='center' color='error.main'>
-            Please see <MuiLink href='#'>this GitHub repo</MuiLink> page for
-            more information. Thank you.
+            Please see{' '}
+            <MuiLink
+              href='https://github.com/Reeceeboii/AstroCue-Server'
+              target='blank'
+              rel='noreferrer'
+            >
+              this GitHub repo
+            </MuiLink>{' '}
+            for more information. Thank you.
           </Typography>
           <Typography variant='body1' align='center'>
             No account?
